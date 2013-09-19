@@ -10,7 +10,6 @@ var mountFolder = function (connect, dir) {
 // 'test/spec/{,*/}*.js'
 // use this if you want to match all subfolders:
 // 'test/spec/**/*.js'
-// templateFramework: '<%= templateFramework %>'
 
 module.exports = function (grunt) {
     // show elapsed time at the end
@@ -51,27 +50,15 @@ module.exports = function (grunt) {
                     '{.tmp,<%%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    '<%%= yeoman.app %>/scripts/templates/*.{ejs,mustache,hbs}'
+                    '<%%= yeoman.app %>/scripts/templates/*.ejs'
                 ]
-            }<% if (templateFramework === 'mustache') { %>,
-            mustache: {
-                files: [
-                    '<%%= yeoman.app %>/scripts/templates/*.mustache'
-                ],
-                tasks: ['mustache']
-            }<% } else if (templateFramework === 'handlebars') { %>,
-            handlebars: {
-                files: [
-                    '<%%= yeoman.app %>/scripts/templates/*.hbs'
-                ],
-                tasks: ['handlebars']
-            }<% } else { %>,
+            },
             jst: {
                 files: [
                     '<%%= yeoman.app %>/scripts/templates/*.ejs'
                 ],
                 tasks: ['jst']
-            }<% } %><% if (testFramework === 'jasmine') { %>,
+            }<% if (testFramework === 'jasmine') { %>,
             test: {
                 files: ['<%%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
                 tasks: ['test']
@@ -213,8 +200,8 @@ module.exports = function (grunt) {
                     // required to support SourceMaps
                     // http://requirejs.org/docs/errors.html#sourcemapcomments
                     preserveLicenseComments: false,
-                    useStrict: true<% if (templateFramework !== 'handlebars') { %>,
-                    wrap: true<% } %>
+                    useStrict: true,
+                    wrap: true
                     //uglify2: {} // https://github.com/mishoo/UglifyJS2
                 }
             }
@@ -298,30 +285,7 @@ module.exports = function (grunt) {
             all: {
                 rjsConfig: '<%%= yeoman.app %>/scripts/main.js'
             }
-        },<% if (templateFramework === 'mustache') { %>
-        mustache: {
-            files: {
-                src: '<%%= yeoman.app %>/scripts/templates/',
-                dest: '.tmp/scripts/templates.js',
-                options: {<% if (includeRequireJS) { %>
-                    prefix: 'define(function() { this.JST = ',
-                    postfix: '; return this.JST;});'<% } else { %>
-                    prefix: 'this.JST = ',
-                    postfix: ';'<% } %>
-                }
-            }
-        }<% } else if (templateFramework === 'handlebars') { %>
-        handlebars: {
-            compile: {
-                options: {
-                    namespace: 'JST'<% if (includeRequireJS) { %>,
-                    amd: true<% } %>
-                },
-                files: {
-                    '.tmp/scripts/templates.js': ['<%%= yeoman.app %>/scripts/templates/*.hbs']
-                }
-            }
-        }<% } else { %>
+        },
         jst: {<% if (includeRequireJS) { %>
             options: {
                 amd: true
@@ -331,7 +295,7 @@ module.exports = function (grunt) {
                     '.tmp/scripts/templates.js': ['<%%= yeoman.app %>/scripts/templates/*.ejs']
                 }
             }
-        }<% } %>,
+        },
         rev: {
             dist: {
                 files: {
@@ -357,10 +321,8 @@ module.exports = function (grunt) {
             return grunt.task.run([
                 'clean:server',
                 'coffee',
-                'createDefaultTemplate',<% if (templateFramework === 'mustache' ) { %>
-                'mustache',<% } else if (templateFramework === 'handlebars') { %>
-                'handlebars',<% } else { %>
-                'jst',<% } %>
+                'createDefaultTemplate',
+                'jst',
                 'compass:server',
                 'connect:test:keepalive'
             ]);
@@ -369,10 +331,8 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'coffee:dist',
-            'createDefaultTemplate',<% if (templateFramework === 'mustache') { %>
-            'mustache',<% } else if (templateFramework === 'handlebars') { %>
-            'handlebars',<% } else { %>
-            'jst',<% } %>
+            'createDefaultTemplate',
+            'jst',
             'compass:server',
             'connect:livereload',
             'open',
@@ -383,10 +343,8 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'clean:server',
         'coffee',
-        'createDefaultTemplate',<% if (templateFramework === 'mustache' ) { %>
-        'mustache',<% } else if (templateFramework === 'handlebars') { %>
-        'handlebars',<% } else { %>
-        'jst',<% } %>
+        'createDefaultTemplate',
+        'jst',
         'compass',<% if(testFramework === 'mocha') { %>
         'connect:test',
         'mocha'<% } else { %>
@@ -397,10 +355,8 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'coffee',
-        'createDefaultTemplate',<% if (templateFramework === 'mustache' ) { %>
-        'mustache',<% } else if (templateFramework === 'handlebars') { %>
-        'handlebars',<% } else { %>
-        'jst',<% } %>
+        'createDefaultTemplate',
+        'jst',
         'compass:dist',
         'useminPrepare',<% if (includeRequireJS) { %>
         'requirejs',<% } %>

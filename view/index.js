@@ -17,21 +17,12 @@ util.inherits(Generator, scriptBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
   var ext = this.options.coffee ? '.coffee' : '.js';
-  var templateFramework = this.getTemplateFramework();
-  var templateExt = '.ejs';
-  if (templateFramework === 'mustache') {
-    templateExt = '-template.mustache';
-  } else if (templateFramework === 'handlebars') {
-    templateExt = '.hbs';
-  }
-  this.jst_path = 'app/scripts/templates/' + this.name + templateExt;
+
+  this.jst_path = 'app/scripts/templates/' + this.name + '.ejs';
   var destFile = path.join('app/scripts/views', this.name + ext);
   var isRequireJsApp = this.isUsingRequireJS();
 
   this.template('view.ejs', this.jst_path);
-  if (templateFramework === 'mustache') {
-    this.jst_path = this.name + '-template';
-  }
   if (!isRequireJsApp) {
     this.template('view' + ext, destFile);
     this.addScriptToIndex('views/' + this.name);
