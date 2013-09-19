@@ -37,7 +37,8 @@ require.config({
                 'backbone',
                 'backboneLayoutManager',
                 'text',
-                'FastClick'
+                'FastClick',
+                'stickIt'
             ],
             exports: 'M'
         }
