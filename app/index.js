@@ -2,12 +2,14 @@
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
+var router = require('../router');
 
 
 var Generator = module.exports = function Generator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.testFramework = this.options['test-framework'] || 'mocha';
+  this.templateFramework = this.options['template-framework'] || 'lodash';
   this.hookFor(this.testFramework, {
     as: 'app',
     options: {
@@ -41,7 +43,7 @@ Generator.prototype.askFor = function askFor() {
     choices: [{
       name: 'Use Sass',
       value: 'sass',
-      checked: true
+      checked: false
     }]
   }];
 
@@ -49,7 +51,7 @@ Generator.prototype.askFor = function askFor() {
     prompts[0].choices.push({
       name: 'Use CoffeeScript',
       value: 'coffee',
-      checked: true
+      checked: false
     });
   }
 
@@ -125,7 +127,11 @@ Generator.prototype.writeIndex = function writeIndex() {
   var vendorJS = [
     'bower_components/jquery/jquery.js',
     'bower_components/underscore/underscore.js',
-    'bower_components/backbone/backbone.js'
+    'bower_components/backbone/backbone.js',
+    'bower_components/backbone.stickit/backbone.stickit.js',
+    'bower_components/layoutmanager/backbone.layoutmanager.js',
+    'bower_components/tmp2/tmp2.js',
+    'bower_components/fastclick/lib/fastclick.js'
   ];
 
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
@@ -170,12 +176,35 @@ Generator.prototype.mainJs = function mainJs() {
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
-  var mainJsFile = this.engine(this.read('requirejs_app.js'), this);
+  var mainJsFile = this.engine(this.read('requirejs_main.js'), this);
 
   this.write('app/scripts/main.js', mainJsFile);
 };
 
+Generator.prototype.mainRouterJs = function mainJs() {
+  if (!this.includeRequireJS) {
+    return;
+  }
+
+  var routerGenerator = new router(['router'], {
+    env: this.options.env,
+    resolved: __filename
+  });
+  routerGenerator.createControllerFiles();
+};
+
 Generator.prototype.createAppFile = function createAppFile() {
+  if (!this.includeRequireJS) {
+    return;
+  }
+  var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
+  this.sourceRoot(path.join(__dirname, dirPath));
+
+  var ext = this.options.coffee ? 'coffee' : 'js';
+  this.template('app.' + ext, 'app/scripts/app.' + ext);
+};
+
+Generator.prototype.createMainFile = function createMainFile() {
   if (this.includeRequireJS) {
     return;
   }
@@ -183,5 +212,5 @@ Generator.prototype.createAppFile = function createAppFile() {
   this.sourceRoot(path.join(__dirname, dirPath));
 
   var ext = this.options.coffee ? 'coffee' : 'js';
-  this.template('app.' + ext, 'app/scripts/main.' + ext);
+  this.template('main.' + ext, 'app/scripts/main.' + ext);
 };

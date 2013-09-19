@@ -1,107 +1,47 @@
-# Backbone.js generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-backbone.png?branch=master)](http://travis-ci.org/yeoman/generator-backbone)
+# generator-tmp2
 
-Maintainer: [Revath S Kumar](https://github.com/revathskumar)
+A generator for [Yeoman](http://yeoman.io).
 
-A Backbone generator for Yeoman that provides a functional boilerplate Backbone app out of the box. You also get access to a number of sub-generators which can be used to easily create individual models, views, collections and so on.
+## Notice
+This module is under development and not yet ready for production use.
 
-Optional RequireJS (AMD) support has recently been added as a prompt when using the generator on new projects.
+## Getting Started
 
+### What is Yeoman?
 
-## Usage
+Trick question. It's not a thing. It's this guy:
 
-Install: `npm install -g generator-backbone`
+Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
 
-Make a new directory and `cd` into it:
-```
-mkdir my-new-project && cd $_
-```
-
-Run `yo backbone`, optionally passing an app name:
-```
-yo backbone [app-name]
-```
-
-## Generators
-
-Available generators:
-
-- backbone:model
-- backbone:view
-- backbone:collection
-- backbone:router
-- backbone:all
-
-## Typical workflow
+Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
 
 ```
-yo backbone # generates your application base and build workflow
-yo backbone:model blog
-yo backbone:collection blog
-yo backbone:router blog
-yo backbone:view blog
-grunt server
+$ npm install -g yo
 ```
 
-Also checkout this [NetTuts write-up](http://net.tutsplus.com/tutorials/javascript-ajax/building-apps-with-the-yeoman-workflow/) for a guide to building Backbone.js apps using this generator.
+### Yeoman Generators
 
+Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-## Options
-
-* `--coffee`
-  
-  Generate scaffolds in CoffeeScript.
-  RequireJS is not supported with `--coffee` option for now.
-
-* `--skip-install`
-
-  Skips the automatic execution of `bower` and `npm` after
-  scaffolding has finished.
-
-* `--test-framework=[framework]`
-
-  Defaults to `mocha`. Can be switched for
-  another supported testing framework like `jasmine`.
-
-* `--template-framework=[framework]`
-
-  Defaults to `lodash` templating with grunt-contrib-jst.
-  `handlebars` and `mustache` are also supported.
-  
-## A note regarding JST templates and strict mode
-
-If you use strict mode in your app and JST templates the default grunt-jst implementation will cause your app to error out as the templates will be precompiled using a 'with' statement.
-
-This can be addressed by changing the jst grunt task as follows:
+To install generator-tmp2 from npm, run:
 
 ```
-jst: {
-    compile: {
-        options:
-        {
-            templateSettings:
-            {
-                variable: 'data'
-            }
-        },
-        files: {
-            '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.ejs']
-        }
-    }
-},
+$ npm install -g generator-tmp2
 ```
-A result of this change is that your template variable definitions must also be updated from `<%= templateVariable %>` to `<%= data.templateVariable %>`. More information on this can be found in the [Underscore documentation](http://underscorejs.org/#template).
 
-## Contribute
+Finally, initiate the generator:
 
-See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
+```
+$ yo tmp2
+```
 
-When submitting an issue, please follow the [guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue.
+### Getting To Know Yeoman
 
-When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
+Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
 
-When submitting a new feature, add tests that cover the feature.
+If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
 
 
 ## License
 
-[BSD license](http://opensource.org/licenses/bsd-license.php)
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)

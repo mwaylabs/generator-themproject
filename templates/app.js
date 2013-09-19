@@ -1,18 +1,10 @@
-/*global <%= _.camelize(appname) %>, $*/
+define([
+    'themproject',
+    'routes/router'
+], function( M, Router ) {
 
-
-window.<%= _.camelize(appname) %> = {
-    Models: {},
-    Collections: {},
-    Views: {},
-    Routers: {},
-    init: function () {
-        'use strict';
-        console.log('Hello from Backbone!');
-    }
-};
-
-$(document).ready(function () {
-    'use strict';
-    <%= _.camelize(appname) %>.init();
+    window.<%= _.camelize(appname) %> = new M.Application();
+    <%= _.camelize(appname) %>.start({
+        router: new Router()
+    });
 });
