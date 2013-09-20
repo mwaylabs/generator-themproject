@@ -328,16 +328,23 @@ module.exports = function (grunt) {
             ]);
         }
 
-        grunt.task.run([
+        var tasks = [
             'clean:server',
             'coffee:dist',
             'createDefaultTemplate',
             'jst',
             'compass:server',
             'connect:livereload',
-            'open',
             'watch'
-        ]);
+        ];
+
+        // grunt server --open=true
+        var openBrowser = grunt.option('open') || false;
+        if( openBrowser ) {
+            tasks.splice(tasks.length - 1, 0, 'open');
+        }
+
+        grunt.task.run(tasks);
     });
 
     grunt.registerTask('test', [
