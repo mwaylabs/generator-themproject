@@ -5,6 +5,7 @@ window.<%= _.camelize(appname) %> = {
     Models: {},
     Collections: {},
     Views: {},
+    Controllers: {},
     Routers: {},
     init: function () {
         'use strict';
