@@ -81,6 +81,17 @@ module.exports = function (grunt) {
                     }
                 }
             },
+            manualreload: {
+                options: {
+                    middleware: function (connect) {
+                        return [
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, yeomanConfig.app)
+                        ];
+                    },
+                    keepalive: true
+                }
+            },
             test: {
                 options: {
                     port: 9001,
@@ -328,19 +339,25 @@ module.exports = function (grunt) {
             ]);
         }
 
+        var reloadType = 'livereload';
+        if(grunt.option('reload') === false) {
+            reloadType = 'manualreload';
+        }
+
         var tasks = [
             'clean:server',
             'coffee:dist',
             'createDefaultTemplate',
             'jst',
             'compass:server',
-            'connect:livereload',
-            'watch'
+            'connect:' + reloadType
         ];
 
-        // grunt server --open=true
-        var openBrowser = grunt.option('open') || false;
-        if( openBrowser ) {
+        if(reloadType === 'livereload') {
+            tasks.push('watch');
+        }
+
+        if( grunt.option('open') !== false ) {
             tasks.splice(tasks.length - 1, 0, 'open');
         }
 
