@@ -25,23 +25,13 @@ module.exports = function (grunt) {
         dist: cfg.paths.dist
     };
 
-    var defaultBooleanOption = function( name ) {
-        var result = grunt.option(name);
-        if( result === void 0 ) {
-            result = cfg.server[name];
-            if( result === 'true' || result === 'false' ) {
-                result = result === 'true';
-            }
+    // TODO: Implement validation handling
+    var defaultOption = function( name, defaultValue ) {
+        var value = grunt.option(name);
+        if( value === void 0 ) {
+            value = defaultValue;
         }
-        if( typeof result !== 'boolean' ) {
-            var input = 'cfg.server.' + name + ':' + result;
-            if( result ) {
-                input = '--' + name + '=' + result;
-            }
-            grunt.fail.warn('Option "' + input + '" is not a boolean value!');
-        }
-
-        return result;
+        return value;
     };
 
     grunt.initConfig({
@@ -92,7 +82,7 @@ module.exports = function (grunt) {
         },
         connect: {
             options: {
-                port: cfg.server.port,
+                port: defaultOption('port', cfg.server.port),
                 hostname: '0.0.0.0'
             },
             livereload: {
@@ -365,7 +355,7 @@ module.exports = function (grunt) {
         }
 
         var reloadType = 'manualreload';
-        if( defaultBooleanOption('autoReload') ) {
+        if( defaultOption('autoReload', cfg.server.autoReload) ) {
             reloadType = 'livereload';
         }
 
@@ -382,7 +372,7 @@ module.exports = function (grunt) {
             tasks.push('watch');
         }
 
-        if( defaultBooleanOption('openBrowser') ) {
+        if( defaultOption('openBrowser', cfg.server.openBrowser) ) {
             tasks.splice(tasks.length - 1, 0, 'open');
         }
 
