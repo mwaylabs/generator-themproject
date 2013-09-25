@@ -26,7 +26,8 @@
     "grunt-open": "~0.2.0",
     "load-grunt-tasks": "~0.1.0",
     "connect-livereload": "~0.2.0",
-    "time-grunt": "~0.1.1"
+    "time-grunt": "~0.1.1",
+    "grunt-jsonlint": "~1.0.1"
   },
   "engines": {
       "node": ">=0.8.0"

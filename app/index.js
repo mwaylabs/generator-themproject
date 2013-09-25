@@ -103,6 +103,10 @@ Generator.prototype.editorConfig = function editorConfig() {
   this.copy('editorconfig', '.editorconfig');
 };
 
+Generator.prototype.gruntconfigfile = function gruntconfigfile() {
+  this.template('grunt.config.json');
+};
+
 Generator.prototype.gruntfile = function gruntfile() {
   this.template('Gruntfile.js');
 };

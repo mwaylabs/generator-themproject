@@ -17,13 +17,39 @@ module.exports = function (grunt) {
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
 
+    var cfg = require('./grunt.config.json');
+
     // configurable paths
     var yeomanConfig = {
-        app: 'app',
-        dist: 'dist'
+        app: cfg.paths.app,
+        dist: cfg.paths.dist
+    };
+
+    var defaultBooleanOption = function( name ) {
+        var result = grunt.option(name);
+        if( result === void 0 ) {
+            result = cfg.server[name];
+            if( result === 'true' || result === 'false' ) {
+                result = result === 'true';
+            }
+        }
+        if( typeof result !== 'boolean' ) {
+            var input = 'cfg.server.' + name + ':' + result;
+            if( result ) {
+                input = '--' + name + '=' + result;
+            }
+            grunt.fail.warn('Option "' + input + '" is not a boolean value!');
+        }
+
+        return result;
     };
 
     grunt.initConfig({
+        jsonlint: {
+            pkg: {
+                src: ['grunt.config.json']
+            }
+        },
         yeoman: yeomanConfig,
         watch: {
             options: {
@@ -66,9 +92,8 @@ module.exports = function (grunt) {
         },
         connect: {
             options: {
-                port: 9000,
-                // change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                port: cfg.server.port,
+                hostname: '0.0.0.0'
             },
             livereload: {
                 options: {
@@ -94,7 +119,7 @@ module.exports = function (grunt) {
             },
             test: {
                 options: {
-                    port: 9001,
+                    port: cfg.test.port,
                     middleware: function (connect) {
                         return [
                             mountFolder(connect, '.tmp'),
@@ -339,9 +364,9 @@ module.exports = function (grunt) {
             ]);
         }
 
-        var reloadType = 'livereload';
-        if(grunt.option('reload') === false) {
-            reloadType = 'manualreload';
+        var reloadType = 'manualreload';
+        if( defaultBooleanOption('autoReload') ) {
+            reloadType = 'livereload';
         }
 
         var tasks = [
@@ -357,7 +382,7 @@ module.exports = function (grunt) {
             tasks.push('watch');
         }
 
-        if( grunt.option('open') !== false ) {
+        if( defaultBooleanOption('openBrowser') ) {
             tasks.splice(tasks.length - 1, 0, 'open');
         }
 
