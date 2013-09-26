@@ -69,11 +69,11 @@ module.exports = function (grunt) {
                     '<%%= yeoman.app %>/scripts/templates/*.ejs'
                 ]
             },
-            jst: {
+            tmpl: {
                 files: [
                     '<%%= yeoman.app %>/scripts/templates/*.ejs'
                 ],
-                tasks: ['jst']
+                tasks: ['tmpl']
             }<% if (testFramework === 'jasmine') { %>,
             test: {
                 files: ['<%%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
@@ -313,7 +313,7 @@ module.exports = function (grunt) {
                 rjsConfig: '<%%= yeoman.app %>/scripts/main.js'
             }
         },
-        jst: {<% if (includeRequireJS) { %>
+        tmpl: {<% if (includeRequireJS) { %>
             options: {
                 amd: true
             },<% } %>
@@ -349,7 +349,7 @@ module.exports = function (grunt) {
                 'clean:server',
                 'coffee',
                 'createDefaultTemplate',
-                'jst',
+                'tmpl',
                 'compass:server',
                 'connect:test:keepalive'
             ]);
@@ -364,7 +364,7 @@ module.exports = function (grunt) {
             'clean:server',
             'coffee:dist',
             'createDefaultTemplate',
-            'jst',
+            'tmpl',
             'compass:server',
             'connect:' + reloadType
         ];
@@ -384,7 +384,7 @@ module.exports = function (grunt) {
         'clean:server',
         'coffee',
         'createDefaultTemplate',
-        'jst',
+        'tmpl',
         'compass',<% if(testFramework === 'mocha') { %>
         'connect:test',
         'mocha'<% } else { %>
@@ -396,7 +396,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'coffee',
         'createDefaultTemplate',
-        'jst',
+        'tmpl',
         'compass:dist',
         'useminPrepare',<% if (includeRequireJS) { %>
         'requirejs',<% } %>
