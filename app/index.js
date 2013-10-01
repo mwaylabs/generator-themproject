@@ -134,6 +134,7 @@ Generator.prototype.writeIndex = function writeIndex() {
     'bower_components/backbone/backbone.js',
     'bower_components/backbone.stickit/backbone.stickit.js',
     'bower_components/layoutmanager/backbone.layoutmanager.js',
+    'bower_components/tmpl/tmpl.js',
     'bower_components/tmp2/tmp2.js',
     'bower_components/fastclick/lib/fastclick.js'
   ];
