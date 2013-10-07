@@ -9,7 +9,6 @@ var Generator = module.exports = function Generator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
   this.testFramework = this.options['test-framework'] || 'mocha';
-  this.templateFramework = this.options['template-framework'] || 'lodash';
   this.hookFor(this.testFramework, {
     as: 'app',
     options: {
@@ -136,7 +135,8 @@ Generator.prototype.writeIndex = function writeIndex() {
     'bower_components/layoutmanager/backbone.layoutmanager.js',
     'bower_components/tmpl/tmpl.js',
     'bower_components/tmp2/tmp2.js',
-    'bower_components/fastclick/lib/fastclick.js'
+    'bower_components/fastclick/lib/fastclick.js',
+    'bower_components/socket.io-client/dist/socket.io.js'
   ];
 
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);

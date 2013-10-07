@@ -46,7 +46,8 @@ require.config({
                 'text',
                 'FastClick',
                 'stickIt',
-                'tmpl'
+                'tmpl',
+                'socketio'
             ],
             exports: 'M'
         }
@@ -60,6 +61,7 @@ require.config({
         text: '../bower_components/requirejs-text/text',
         themproject: '../bower_components/tmp2/tmp2',
         FastClick: '../bower_components/fastclick/lib/fastclick',
+        socketio: '../bower_components/socket.io-client/dist/socket.io',
         tmpl: '../bower_components/tmpl/tmpl'
     }
 });
