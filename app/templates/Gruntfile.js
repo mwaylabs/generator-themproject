@@ -1,6 +1,7 @@
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };<% if (includeRequireJS) { %>
@@ -18,7 +19,7 @@ module.exports = function (grunt) {
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
 
-    var cfg = require('./grunt.config.json');
+    var cfg = require('./grunt.config.js');
 
     // configurable paths
     var yeomanConfig = {
@@ -86,24 +87,33 @@ module.exports = function (grunt) {
                 port: defaultOption('port', cfg.server.port),
                 hostname: '0.0.0.0'
             },
+            proxies: cfg.server.proxies || [],
             livereload: {
                 options: {
                     middleware: function (connect) {
-                        return [
+                        var middleware = [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, yeomanConfig.app)
                         ];
+                        if(cfg.server.proxies) {
+                            middleware.unshift(proxySnippet);
+                        }
+                        return middleware;
                     }
                 }
             },
             manualreload: {
                 options: {
                     middleware: function (connect) {
-                        return [
+                        var middleware = [
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, yeomanConfig.app)
                         ];
+                        if(cfg.server.proxies) {
+                            middleware.unshift(proxySnippet);
+                        }
+                        return middleware;
                     },
                     keepalive: true
                 }
@@ -407,6 +417,7 @@ module.exports = function (grunt) {
             'createDefaultTemplate',
             'tmpl',
             'compass:server',
+            'configureProxies',
             'connect:' + reloadType
         ];
 

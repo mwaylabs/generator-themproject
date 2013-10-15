@@ -103,7 +103,7 @@ Generator.prototype.editorConfig = function editorConfig() {
 };
 
 Generator.prototype.gruntconfigfile = function gruntconfigfile() {
-  this.template('grunt.config.json');
+  this.template('grunt.config.js');
 };
 
 Generator.prototype.gruntfile = function gruntfile() {

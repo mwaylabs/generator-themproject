@@ -27,6 +27,7 @@
     "connect-livereload": "~0.2.0",
     "time-grunt": "~0.1.1",
     "grunt-jsonlint": "~1.0.1",
+    "grunt-connect-proxy": "~0.1.6",
     "grunt-tmpl": "latest"
   },
   "engines": {
