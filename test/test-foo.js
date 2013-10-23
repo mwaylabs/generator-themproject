@@ -16,12 +16,13 @@ var assert  = require('assert');
 // Something like:
 //
 //    generators()
-//      .register(require('../all'), 'backbone:all')
-//      .register(require('../app'), 'backbone:app')
-//      .register(require('../view'), 'backbone:view')
-//      .register(require('../router'), 'backbone:router')
-//      .register(require('../model'), 'backbone:model')
-//      .register(require('../collection'), 'backbone:collection')
+//      .register(require('../all'), 'tmp2:all')
+//      .register(require('../app'), 'tmp2:app')
+//      .register(require('../view'), 'tmp2:view')
+//      .register(require('../router'), 'tmp2:router')
+//      .register(require('../model'), 'tmp2:model')
+//      .register(require('../collection'), 'tmp2:collection')
+//      .register(require('../controller'), 'tmp2:controller')
 //
 // Or for the lazy guy:
 //
@@ -29,23 +30,24 @@ var assert  = require('assert');
 //      .lookup('*:*', path.join(__dirname, '..'))
 //
 
-describe('Backbone generator test', function () {
+describe('The-M-Project generator test', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, './temp'), function (err) {
       if (err) {
         return done(err);
       }
-      this.backbone = {};
-      this.backbone.app = helpers.createGenerator('backbone:app', [
+      this.themproject = {};
+      this.themproject.app = helpers.createGenerator('tmp2:app', [
         '../../app', [
           helpers.createDummyGenerator(),
           'mocha:app'
         ]
       ]);
-      this.backbone.app.options['skip-install'] = true;
+      this.themproject.app.options['skip-install'] = true;
 
-      helpers.mockPrompt(this.backbone.app, {
-        features: ['compassBootstrap'],
+      helpers.mockPrompt(this.themproject.app, {
+        //features: ['compassBootstrap'],
+        sass: true,
         includeRequireJS: false
       });
 
@@ -62,6 +64,7 @@ describe('Backbone generator test', function () {
     this.model = require('../model');
     this.router = require('../router');
     this.view = require('../view');
+    this.controller = require('../controller');
   });
 
   it('creates expected files', function (done) {
@@ -69,11 +72,9 @@ describe('Backbone generator test', function () {
       ['bower.json', /"name": "temp"/],
       ['package.json', /"name": "temp"/],
       'Gruntfile.js',
-      'app/404.html',
+      'grunt.config.js',
       'app/favicon.ico',
-      'app/robots.txt',
       'app/index.html',
-      'app/.htaccess',
       '.gitignore',
       '.gitattributes',
       '.bowerrc',
@@ -85,22 +86,22 @@ describe('Backbone generator test', function () {
       'app/styles/main.scss'
     ];
 
-    this.backbone.app.run({}, function () {
+    this.themproject.app.run({}, function () {
       helpers.assertFiles(expected);
       done();
     });
 
   });
 
-  describe('Backbone Model', function () {
-    it('creates backbone model', function (done) {
-      var model = helpers.createGenerator('backbone:model', ['../../model'], ['foo']);
+  describe('The-M-Project Model', function () {
+    it('creates themproject model', function (done) {
+      var model = helpers.createGenerator('tmp2:model', ['../../model'], ['foo']);
 
-      this.backbone.app.run({}, function () {
+      this.themproject.app.run({}, function () {
         model.run([], function () {
           helpers.assertFiles([
             ['app/scripts/models/foo.js',
-              /Models.FooModel = Backbone.Model.extend\(\{/]
+              /Models.FooModel = M.Model.extend\(\{/]
           ]);
         });
         done();
@@ -108,14 +109,14 @@ describe('Backbone generator test', function () {
     });
   });
 
-  describe('Backbone Collection', function () {
-    it('creates backbone collection', function (done) {
-      var collection = helpers.createGenerator('backbone:collection', ['../../collection'], ['foo']);
+  describe('The-M-Project Collection', function () {
+    it('creates themproject collection', function (done) {
+      var collection = helpers.createGenerator('tmp2:collection', ['../../collection'], ['foo']);
 
-      this.backbone.app.run({}, function () {
+      this.themproject.app.run({}, function () {
         collection.run([], function () {
           helpers.assertFiles([
-            ['app/scripts/collections/foo.js', /Collections.FooCollection = Backbone.Collection.extend\(\{/]
+            ['app/scripts/collections/foo.js', /Collections.FooCollection = M.Collection.extend\(\{/]
           ]);
         });
         done();
@@ -123,14 +124,14 @@ describe('Backbone generator test', function () {
     });
   });
 
-  describe('Backbone Router', function () {
-    it('creates backbone router', function (done) {
-      var router = helpers.createGenerator('backbone:router', ['../../router'], ['foo']);
+  describe('The-M-Project Router', function () {
+    it('creates themproject router', function (done) {
+      var router = helpers.createGenerator('tmp2:router', ['../../router'], ['foo']);
 
-      this.backbone.app.run({}, function () {
+      this.themproject.app.run({}, function () {
         router.run([], function () {
           helpers.assertFiles([
-            ['app/scripts/routes/foo.js', /Routers.FooRouter = Backbone.Router.extend\(\{/]
+            ['app/scripts/routes/foo.js', /Routers.FooRouter = M.Router.extend\(\{/]
           ]);
         });
         done();
@@ -138,15 +139,30 @@ describe('Backbone generator test', function () {
     });
   });
 
-  describe('Backbone View', function () {
-    it('creates backbone view', function (done) {
-      var view = helpers.createGenerator('backbone:view', ['../../view'], ['foo']);
+  describe('The-M-Project View', function () {
+    it('creates themproject view', function (done) {
+      var view = helpers.createGenerator('tmp2:view', ['../../view'], ['foo']);
 
-      this.backbone.app.run({}, function () {
+      this.themproject.app.run({}, function () {
         view.run([], function () {
           helpers.assertFiles([
-            ['app/scripts/views/foo.js', /Views.FooView = Backbone.View.extend\(\{(.|\n)*app\/scripts\/templates\/foo.ejs/],
+            ['app/scripts/views/foo.js', /Views.FooView = M.View.extend\(\{(.|\n)*app\/scripts\/templates\/foo.ejs/],
             'app/scripts/templates/foo.ejs'
+          ]);
+        });
+        done();
+      });
+    });
+  });
+
+  describe('The-M-Project Controller', function () {
+    it('creates themproject controller', function (done) {
+      var controller = helpers.createGenerator('tmp2:controller', ['../../controller'], ['foo']);
+
+      this.themproject.app.run({}, function () {
+        controller.run([], function () {
+          helpers.assertFiles([
+            ['app/scripts/controllers/foo.js', /Controllers.FooController = M.Controller.extend\(\{/]
           ]);
         });
         done();
