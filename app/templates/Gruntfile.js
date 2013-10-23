@@ -1,6 +1,5 @@
 'use strict';
 var LIVERELOAD_PORT = 35729;
-var SERVER_PORT = 9000;
 var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 var mountFolder = function (connect, dir) {
@@ -63,7 +62,8 @@ module.exports = function (grunt) {
                     '{.tmp,<%%= yeoman.app %>}/styles/{,*/}*.css',
                     '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    '<%%= yeoman.app %>/scripts/templates/*.ejs'
+                    '<%%= yeoman.app %>/scripts/templates/*.ejs',
+                    'test/spec/**/*.js'
                 ]
             },
             tmpl: {
@@ -71,11 +71,11 @@ module.exports = function (grunt) {
                     '<%%= yeoman.app %>/scripts/templates/*.ejs'
                 ],
                 tasks: ['tmpl']
-            }<% if (testFramework === 'jasmine') { %>,
+            },
             test: {
                 files: ['<%%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
                 tasks: ['test']
-            }<% } %>
+            }
         },
         connect: {
             options: {
@@ -159,20 +159,21 @@ module.exports = function (grunt) {
             all: {
                 options: {
                     run: true,
-                    urls: ['http://localhost:<%%= connect.options.port %>/index.html']
+                    urls: ['http://localhost:<%%= connect.test.options.port %>/index.html']
                 }
             }
         }<% } else { %>,
         jasmine: {
             all:{
-                src : '.tmp/scripts/combined-scripts.js',
+                src : ,'<%= yeoman.app %>/scripts/{,*/}*.js',
                 options: {
                     keepRunner: true,
                     specs : 'test/spec/**/*.js',
                     vendor : [
                         '<%%= yeoman.app %>/bower_components/jquery/jquery.js',
                         '<%%= yeoman.app %>/bower_components/underscore/underscore.js',
-                        '<%%= yeoman.app %>/bower_components/backbone/backbone.js'
+                        '<%%= yeoman.app %>/bower_components/backbone/backbone.js',
+                        '.tmp/scripts/templates.js'
                     ]
                 }
             }
@@ -358,7 +359,8 @@ module.exports = function (grunt) {
                 'createDefaultTemplate',
                 'tmpl',<% if (useSass) { %>
                 'compass:server',<% } %>
-                'connect:test:keepalive'
+                'connect:test',
+                'watch:livereload'
             ]);
         }
 
@@ -395,9 +397,9 @@ module.exports = function (grunt) {
         'tmpl',<% if (useSass) { %>
         'compass',<% } %><% if(testFramework === 'mocha') { %>
         'connect:test',
-        'mocha'<% } else { %>
-        'jasmine',
-        'watch:test'<% } %>
+        'mocha',<% } else { %>
+        'jasmine',<% } %>
+        'watch:test'
     ]);
 
     grunt.registerTask('build', [
