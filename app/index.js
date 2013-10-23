@@ -43,57 +43,20 @@ Generator.prototype.askFor = function askFor() {
   console.log(':::::: TMP2 Generator ::::::');
 
   var prompts = [{
-    type: 'checkbox',
-    name: 'features',
-    message: 'What more would you like?',
-    choices: [{
-      name: 'Use Sass',
-      value: 'sass',
-      checked: false
-    }]
+    type: 'confirm',
+    name: 'sass',
+    message: 'Use Sass?',
+    default: false
   }];
 
-//    TODO Implement coffe support
-//  if (!this.options.coffee) {
-//    prompts[0].choices.push({
-//      name: 'Use CoffeeScript',
-//      value: 'coffee',
-//      checked: false
-//    });
-//  }
-
   this.prompt(prompts, function (answers) {
-    var features = answers.features;
+    this.useSass = answers.sass;
 
-    function hasFeature(feat) { return features.indexOf(feat) !== -1; }
-
-    // manually deal with the response, get back and store the results.
-    // we change a bit this way of doing to automatically do this in the self.prompt() method.
-    this.sass = hasFeature('sass');
-
-//    TODO Implement coffe support
-//    if (!this.options.coffee) {
-//      this.options.coffee = hasFeature('coffee');
-//    }
-//
-//    if (!this.options.coffee) {
-//      this.prompt([{
-//        type: 'confirm',
-//        name: 'includeRequireJS',
-//        message: 'Add RequireJS?'
-//      }], function (answers) {
-//        this.includeRequireJS = answers.includeRequireJS;
-//
-//        cb();
-//      }.bind(this));
-//    } else {
-//      this.includeRequireJS = false;
-//      cb();
-//    }
+    // TODO Implement CoffeeScript, requireJS support
     this.includeRequireJS = false;
+    this.useCoffee = false;
+
     cb();
-
-
   }.bind(this));
 };
 
@@ -128,15 +91,11 @@ Generator.prototype.packageJSON = function packageJSON() {
 };
 
 Generator.prototype.mainStylesheet = function mainStylesheet() {
-  var contentText = [
-    'body {\n    background: #fafafa;\n}',
-    '\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}'
-  ];
   var ext = '.css';
-  if (this.sass) {
+  if (this.useSass) {
     ext = '.scss';
   }
-  this.write('app/styles/main' + ext, contentText.join('\n'));
+  this.write('app/styles/main' + ext, '');
 };
 
 Generator.prototype.writeIndex = function writeIndex() {

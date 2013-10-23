@@ -41,7 +41,7 @@ module.exports = function (grunt) {
         watch: {
             options: {
                 nospawn: true
-            },
+            },<% if (useCoffee) { %>
             coffee: {
                 files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
                 tasks: ['coffee:dist']
@@ -49,11 +49,11 @@ module.exports = function (grunt) {
             coffeeTest: {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
-            },
+            },<% } %><% if (useSass) { %>
             compass: {
                 files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
-            },
+            },<% } %>
             livereload: {
                 options: {
                     livereload: LIVERELOAD_PORT
@@ -176,7 +176,7 @@ module.exports = function (grunt) {
                     ]
                 }
             }
-        }<% } %>,
+        }<% } %>,<% if (useCoffee) { %>
         coffee: {
             dist: {
                 files: [{
@@ -198,7 +198,7 @@ module.exports = function (grunt) {
                     ext: '.js'
                 }]
             }
-        },
+        },<% } %><% if (useSass) { %>
         compass: {
             options: {
                 sassDir: '<%%= yeoman.app %>/styles',
@@ -215,7 +215,7 @@ module.exports = function (grunt) {
                     debugInfo: true
                 }
             }
-        },<% if (includeRequireJS) { %>
+        },<% } %><% if (includeRequireJS) { %>
         requirejs: {
             dist: {
                 // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
@@ -353,11 +353,11 @@ module.exports = function (grunt) {
 
         if (target === 'test') {
             return grunt.task.run([
-                'clean:server',
-                'coffee',
+                'clean:server',<% if (useCoffee) { %>
+                'coffee',<% } %>
                 'createDefaultTemplate',
-                'tmpl',
-                'compass:server',
+                'tmpl',<% if (useSass) { %>
+                'compass:server',<% } %>
                 'connect:test:keepalive'
             ]);
         }
@@ -368,11 +368,11 @@ module.exports = function (grunt) {
         }
 
         var tasks = [
-            'clean:server',
-            'coffee:dist',
+            'clean:server',<% if (useCoffee) { %>
+            'coffee:dist',<% } %>
             'createDefaultTemplate',
-            'tmpl',
-            'compass:server',
+            'tmpl',<% if (useSass) { %>
+            'compass:server',<% } %>
             'configureProxies',
             'connect:' + reloadType
         ];
@@ -389,11 +389,11 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
-        'clean:server',
-        'coffee',
+        'clean:server',<% if (useCoffee) { %>
+        'coffee',<% } %>
         'createDefaultTemplate',
-        'tmpl',
-        'compass',<% if(testFramework === 'mocha') { %>
+        'tmpl',<% if (useSass) { %>
+        'compass',<% } %><% if(testFramework === 'mocha') { %>
         'connect:test',
         'mocha'<% } else { %>
         'jasmine',
@@ -401,11 +401,11 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean:dist',
-        'coffee',
+        'clean:dist',<% if (useCoffee) { %>
+        'coffee',<% } %>
         'createDefaultTemplate',
-        'tmpl',
-        'compass:dist',
+        'tmpl',<% if (useSass) { %>
+        'compass:dist',<% } %>
         'useminPrepare',<% if (includeRequireJS) { %>
         'requirejs',<% } %>
         'imagemin',
