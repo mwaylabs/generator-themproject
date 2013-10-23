@@ -1,8 +1,8 @@
 /*jshint latedef:false */
-var path = require('path');
-var util = require('util');
-var yeoman = require('yeoman-generator');
-var scriptBase = require('../script-base');
+var path = require('path'),
+  util = require('util'),
+  yeoman = require('yeoman-generator'),
+  scriptBase = require('../script-base');
 
 module.exports = Generator;
 
@@ -10,22 +10,6 @@ function Generator() {
   scriptBase.apply(this, arguments);
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
-
-  // XXX default and banner to be implemented
-  this.argument('attributes', {
-    type: Array,
-    defaults: [],
-    banner: 'field[:type] field[:type]'
-  });
-
-  // parse back the attributes provided, build an array of attr
-  this.attrs = this.attributes.map(function (attr) {
-    var parts = attr.split(':');
-    return {
-      name: parts[0],
-      type: parts[1] || 'string'
-    };
-  });
 
 }
 
@@ -42,24 +26,25 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
     return;
   }
 
-  var template = [
-    '/*global define*/',
-    '',
-    'define([',
-    '    \'underscore\',',
-    '    \'backbone\',',
-    '    \'themproject\'',
-    '], function (_, Backbone, M) {',
-    '    \'use strict\';',
-    '',
-    '    var ' + this._.classify(this.name) + 'Controller = M.Controller.extend({',
-    '        defaults: {',
-    '        }',
-    '    });',
-    '',
-    '    return ' + this._.classify(this.name) + 'Controller;',
-    '});'
-  ].join('\n');
-
-  this.write(destFile, template);
+//  TODO Implement requireJS support
+//  var template = [
+//    '/*global define*/',
+//    '',
+//    'define([',
+//    '    \'jquery\',',
+//    '    \'backbone\'',
+//    '], function ($, Backbone) {',
+//    '    \'use strict\';',
+//    '',
+//    '    var ' + this._.classify(this.name) + 'Router = Backbone.Router.extend({',
+//    '        routes: {',
+//    '        }',
+//    '',
+//    '    });',
+//    '',
+//    '    return ' + this._.classify(this.name) + 'Router;',
+//    '});'
+//  ].join('\n');
+//
+//  this.write(destFile, template);
 };

@@ -10,7 +10,7 @@ function Generator(args, options, config) {
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
-  this.dirs = 'models collections views routes helpers templates'.split(' ');
+  this.dirs = 'models collections views routes helpers templates controllers'.split(' ');
 
   this.option('coffee');
 
@@ -20,28 +20,27 @@ function Generator(args, options, config) {
     args.push('--coffee');
   }
 
-  if (this.options['template-framework']) {
-    this.env.options['template-framework'] = this.options['template-framework'];
-  }
-
   if (this.options['test-framework']) {
     this.env.options['test-framework'] = this.options['test-framework'];
   }
 
   // the api to hookFor and pass arguments may vary a bit.
-  this.hookFor('backbone:app', {
+  this.hookFor('tmp2:app', {
     args: args
   });
-  this.hookFor('backbone:router', {
+  this.hookFor('tmp2:router', {
     args: args
   });
-  this.hookFor('backbone:view', {
+  this.hookFor('tmp2:view', {
     args: args
   });
-  this.hookFor('backbone:model', {
+  this.hookFor('tmp2:model', {
     args: args
   });
-  this.hookFor('backbone:collection', {
+  this.hookFor('tmp2:collection', {
+    args: args
+  });
+    this.hookFor('tmp2:controller', {
     args: args
   });
 

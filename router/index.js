@@ -27,27 +27,25 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
     return;
   }
 
-  var template = [
-    '/*global define*/',
-    '',
-    'define([',
-    '    \'jquery\',',
-    '    \'underscore\',',
-    '    \'backbone\',',
-    '    \'themproject\',',
-    '], function ($, _, Backbone, M) {',
-    '    \'use strict\';',
-    '',
-    '    var ' + this._.classify(this.name) + 'Router = Backbone.Router.extend({',
-    '        routes: {',
-    '        }',
-    '',
-    '    });',
-    '',
-    '    return ' + this._.classify(this.name) + 'Router;',
-    '});'
-  ].join('\n');
-
-  this.write(destFile, template);
-
+//  TODO Implement requireJS support
+//  var template = [
+//    '/*global define*/',
+//    '',
+//    'define([',
+//    '    \'jquery\',',
+//    '    \'backbone\'',
+//    '], function ($, Backbone) {',
+//    '    \'use strict\';',
+//    '',
+//    '    var ' + this._.classify(this.name) + 'Router = Backbone.Router.extend({',
+//    '        routes: {',
+//    '        }',
+//    '',
+//    '    });',
+//    '',
+//    '    return ' + this._.classify(this.name) + 'Router;',
+//    '});'
+//  ].join('\n');
+//
+//  this.write(destFile, template);
 };

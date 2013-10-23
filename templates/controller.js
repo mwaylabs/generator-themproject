@@ -1,4 +1,4 @@
-/*global <%= _.camelize(appname) %>, Backbone*/
+/*global <%= _.camelize(appname) %>, The-M-Project*/
 
 <%= _.camelize(appname) %>.Controllers = <%= _.camelize(appname) %>.Controllers || {};
 

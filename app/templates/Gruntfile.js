@@ -1,11 +1,11 @@
 'use strict';
 var LIVERELOAD_PORT = 35729;
+var SERVER_PORT = 9000;
 var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
-};<% if (includeRequireJS) { %>
-var includedRequireJSFiles = [];<% } %>
+};
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -37,11 +37,6 @@ module.exports = function (grunt) {
     };
 
     grunt.initConfig({
-        jsonlint: {
-            pkg: {
-                src: ['grunt.config.json']
-            }
-        },
         yeoman: yeomanConfig,
         watch: {
             options: {
@@ -237,14 +232,7 @@ module.exports = function (grunt) {
                     // required to support SourceMaps
                     // http://requirejs.org/docs/errors.html#sourcemapcomments
                     preserveLicenseComments: false,
-                    useStrict: true,
-                    wrap: true,
-                    onBuildWrite: function (moduleName, filePath, contents) {
-                        var path = require('path');
-                        var w = path.normalize(path.resolve(__dirname)+ '/');
-                        includedRequireJSFiles.push(filePath.replace(w, ''));
-                        return contents;
-                    }
+                    useStrict: true
                     //uglify2: {} // https://github.com/mishoo/UglifyJS2
                 }
             }
@@ -357,45 +345,13 @@ module.exports = function (grunt) {
     grunt.registerTask('createDefaultTemplate', function () {
         grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
     });
-<% if (includeRequireJS) { %>
-    grunt.registerTask('copyExcludedFiles', function () {
-        var fs = require('fs');
-        var path = require('path');
-        var scan = function (dir) {
-            var files = fs.readdirSync(dir);
 
-            var returnFiles = [];
-            files.forEach(function(file) {
-                var filePath = dir + '/' + file;
-                var stat = fs.statSync(filePath);
-                if (stat.isDirectory()) {
-                    returnFiles = returnFiles.concat(scan(filePath));
-                } else if (stat.isFile()) {
-                    var suffix = '.js';
-                    if (file.indexOf(suffix, file.length - suffix.length) !== -1) {
-                        var p = path.normalize(filePath);
-                        if( includedRequireJSFiles.indexOf(p) == -1) {
-                            var item = {};
-                            item[p.replace(yeomanConfig.app+'/', yeomanConfig.dist+'/')] = p;
-                            returnFiles.push(item);
-                        }
-                    }
-                }
-            });
-            return returnFiles;
-        };
-
-        grunt.config.set('uglify', {
-            dist: {
-                files: scan( yeomanConfig.app + '/scripts')
-            }
-        });
-    });
-<% } %>
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
-        } else if (target === 'test') {
+        }
+
+        if (target === 'test') {
             return grunt.task.run([
                 'clean:server',
                 'coffee',
@@ -457,10 +413,8 @@ module.exports = function (grunt) {
         'concat',
         'cssmin',
         'uglify',
-        'copy',<% if (includeRequireJS) { %>
-        'copyExcludedFiles',
-        'uglify:dist',<% } else { %>
-        'rev',<% } %>
+        'copy',
+        'rev',
         'usemin'
     ]);
 

@@ -1,12 +1,18 @@
-'use strict';
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
-var router = require('../router');
+var scriptBase = require('../script-base');
 
 
 var Generator = module.exports = function Generator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
+
+  if (typeof this.env.options.appPath === 'undefined') {
+    try {
+      this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
+    } catch (e) {}
+    this.env.options.appPath = this.env.options.appPath || 'app';
+  }
 
   this.testFramework = this.options['test-framework'] || 'mocha';
   this.hookFor(this.testFramework, {
@@ -18,15 +24,16 @@ var Generator = module.exports = function Generator(args, options, config) {
     }
   });
 
-  this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
-  });
-
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+
+  this.on('end', function () {
+    if (['app', 'tmp2'].indexOf(this.generatorName) >= 0) {
+      this.installDependencies({ skipInstall: this.options['skip-install'] });
+    }
+  });
 };
 
-util.inherits(Generator, yeoman.generators.Base);
+util.inherits(Generator, scriptBase);
 
 Generator.prototype.askFor = function askFor() {
   var cb = this.async();
@@ -46,13 +53,14 @@ Generator.prototype.askFor = function askFor() {
     }]
   }];
 
-  if (!this.options.coffee) {
-    prompts[0].choices.push({
-      name: 'Use CoffeeScript',
-      value: 'coffee',
-      checked: false
-    });
-  }
+//    TODO Implement coffe support
+//  if (!this.options.coffee) {
+//    prompts[0].choices.push({
+//      name: 'Use CoffeeScript',
+//      value: 'coffee',
+//      checked: false
+//    });
+//  }
 
   this.prompt(prompts, function (answers) {
     var features = answers.features;
@@ -63,24 +71,29 @@ Generator.prototype.askFor = function askFor() {
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.sass = hasFeature('sass');
 
-    if (!this.options.coffee) {
-      this.options.coffee   = hasFeature('coffee');
-    }
+//    TODO Implement coffe support
+//    if (!this.options.coffee) {
+//      this.options.coffee = hasFeature('coffee');
+//    }
+//
+//    if (!this.options.coffee) {
+//      this.prompt([{
+//        type: 'confirm',
+//        name: 'includeRequireJS',
+//        message: 'Add RequireJS?'
+//      }], function (answers) {
+//        this.includeRequireJS = answers.includeRequireJS;
+//
+//        cb();
+//      }.bind(this));
+//    } else {
+//      this.includeRequireJS = false;
+//      cb();
+//    }
+    this.includeRequireJS = false;
+    cb();
 
-    if (!this.options.coffee) {
-      this.prompt([{
-        type: 'confirm',
-        name: 'includeRequireJS',
-        message: 'Add RequireJS ?'
-      }], function (answers) {
-        this.includeRequireJS = answers.includeRequireJS;
 
-        cb();
-      }.bind(this));
-    } else {
-      this.includeRequireJS = false;
-      cb();
-    }
   }.bind(this));
 };
 
@@ -115,11 +128,15 @@ Generator.prototype.packageJSON = function packageJSON() {
 };
 
 Generator.prototype.mainStylesheet = function mainStylesheet() {
+  var contentText = [
+    'body {\n    background: #fafafa;\n}',
+    '\n.hero-unit {\n    margin: 50px auto 0 auto;\n    width: 300px;\n}'
+  ];
   var ext = '.css';
   if (this.sass) {
     ext = '.scss';
   }
-  this.write('app/styles/main' + ext, '');
+  this.write('app/styles/main' + ext, contentText.join('\n'));
 };
 
 Generator.prototype.writeIndex = function writeIndex() {
@@ -127,12 +144,14 @@ Generator.prototype.writeIndex = function writeIndex() {
     return;
   }
 
+  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
+  this.indexFile = this.engine(this.indexFile, this);
+
   var vendorJS = [
     'bower_components/jquery/jquery.js',
     'bower_components/underscore/underscore.js',
     'bower_components/backbone/backbone.js',
     'bower_components/backbone.stickit/backbone.stickit.js',
-    'bower_components/layoutmanager/backbone.layoutmanager.js',
     'bower_components/tmpl/tmpl.js',
     'bower_components/tmp2/tmp2.js',
     'bower_components/fastclick/lib/fastclick.js',
@@ -157,6 +176,8 @@ Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs()
   if (!this.includeRequireJS) {
     return;
   }
+  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
+  this.indexFile = this.engine(this.indexFile, this);
 
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/main.js', [
     'bower_components/requirejs/require.js'
@@ -181,41 +202,19 @@ Generator.prototype.mainJs = function mainJs() {
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
-  var mainJsFile = this.engine(this.read('requirejs_main.js'), this);
+  var mainJsFile = this.engine(this.read('requirejs_app.js'), this);
 
   this.write('app/scripts/main.js', mainJsFile);
 };
 
-Generator.prototype.mainRouterJs = function mainJs() {
-  if (!this.includeRequireJS) {
-    return;
-  }
-
-  var routerGenerator = new router(['router'], {
-    env: this.options.env,
-    resolved: __filename
-  });
-  routerGenerator.createControllerFiles();
-};
-
 Generator.prototype.createAppFile = function createAppFile() {
-  if (!this.includeRequireJS) {
-    return;
-  }
-  var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
-  this.sourceRoot(path.join(__dirname, dirPath));
-
-  var ext = this.options.coffee ? 'coffee' : 'js';
-  this.template('app.' + ext, 'app/scripts/app.' + ext);
-};
-
-Generator.prototype.createMainFile = function createMainFile() {
   if (this.includeRequireJS) {
     return;
   }
+
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
   var ext = this.options.coffee ? 'coffee' : 'js';
-  this.template('main.' + ext, 'app/scripts/main.' + ext);
+  this.template('app.' + ext, 'app/scripts/main.' + ext);
 };

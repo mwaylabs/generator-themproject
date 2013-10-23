@@ -29,25 +29,25 @@ Generator.prototype.createViewFiles = function createViewFiles() {
     return;
   }
 
-  var template = [
-    '/*global define*/',
-    '',
-    'define([',
-    '    \'jquery\',',
-    '    \'underscore\',',
-    '    \'backbone\',',
-    '    \'themproject\',',
-    '    \'templates\'',
-    '], function ($, _, Backbone, M, JST) {',
-    '    \'use strict\';',
-    '',
-    '    var ' + this._.classify(this.name) + 'View = M.View.extend({',
-    '        ' + 'template: JST[\'' + this.jst_path + '\']',
-    '    });',
-    '',
-    '    return ' + this._.classify(this.name) + 'View;',
-    '});'
-  ].join('\n');
-
-  this.write(destFile, template);
+//  TODO Implement requireJS support
+//  var template = [
+//    '/*global define*/',
+//    '',
+//    'define([',
+//    '    \'jquery\',',
+//    '    \'underscore\',',
+//    '    \'backbone\',',
+//    '    \'templates\'',
+//    '], function ($, _, Backbone, JST) {',
+//    '    \'use strict\';',
+//    '',
+//    '    var ' + this._.classify(this.name) + 'View = Backbone.View.extend({',
+//    '        ' + 'template: JST[\'' + this.jst_path + '\']',
+//    '    });',
+//    '',
+//    '    return ' + this._.classify(this.name) + 'View;',
+//    '});'
+//  ].join('\n');
+//
+//  this.write(destFile, template);
 };

@@ -1,4 +1,4 @@
-/*global <%= _.camelize(appname) %>, Backbone, JST*/
+/*global <%= _.camelize(appname) %>, The-M-Project, JST*/
 
 <%= _.camelize(appname) %>.Views = <%= _.camelize(appname) %>.Views || {};
 

@@ -8,8 +8,6 @@ module.exports = Generator;
 
 function Generator() {
   scriptBase.apply(this, arguments);
-  var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
-  this.sourceRoot(path.join(__dirname, dirPath));
 
   // XXX default and banner to be implemented
   this.argument('attributes', {
@@ -42,24 +40,24 @@ Generator.prototype.createModelFiles = function createModelFiles() {
     return;
   }
 
-  var template = [
-    '/*global define*/',
-    '',
-    'define([',
-    '    \'underscore\',',
-    '    \'backbone\',',
-    '    \'themproject\'',
-    '], function (_, Backbone, M) {',
-    '    \'use strict\';',
-    '',
-    '    var ' + this._.classify(this.name) + 'Model = Backbone.Model.extend({',
-    '        defaults: {',
-    '        }',
-    '    });',
-    '',
-    '    return ' + this._.classify(this.name) + 'Model;',
-    '});'
-  ].join('\n');
-
-  this.write(destFile, template);
+//  TODO Implement requireJS support
+//  var template = [
+//    '/*global define*/',
+//    '',
+//    'define([',
+//    '    \'underscore\',',
+//    '    \'backbone\'',
+//    '], function (_, Backbone) {',
+//    '    \'use strict\';',
+//    '',
+//    '    var ' + this._.classify(this.name) + 'Model = Backbone.Model.extend({',
+//    '        defaults: {',
+//    '        }',
+//    '    });',
+//    '',
+//    '    return ' + this._.classify(this.name) + 'Model;',
+//    '});'
+//  ].join('\n');
+//
+//  this.write(destFile, template);
 };
