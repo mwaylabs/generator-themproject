@@ -1,46 +1,46 @@
-# generator-tmp2
+# The-M-Project generator
 
-A generator for [Yeoman](http://yeoman.io).
+A [Yeoman](http://yeoman.io) generator for [The-M-Project](http://the-m-project.org).
 
 ## Notice
 This module is under development and not yet ready for production use.
 
 ## Getting Started
 
-### What is Yeoman?
+- Install: `npm install -g generator-tmp2`
+- Run: `yo tmp2`
+- Run `grunt` for building and `grunt server` for preview
 
-Trick question. It's not a thing. It's this guy:
+## Generators
 
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
+Available generators:
 
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
+- tmp2:model
+- tmp2:view
+- tmp2:collection
+- tmp2:controller
+- tmp2:router
+- tmp2:all
 
-```
-$ npm install -g yo
-```
+## Options
 
-### Yeoman Generators
+* `--skip-install`
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+  Skips the automatic execution of `bower` and `npm` after scaffolding has finished.
 
-To install generator-tmp2 from npm, run:
+* `--test-framework <framework>`
 
-```
-$ npm install -g generator-tmp2
-```
+  Defaults to `mocha`. Can be switched for another supported testing framework like `jasmine`.
+ 
+## Contribute
 
-Finally, initiate the generator:
+See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
 
-```
-$ yo tmp2
-```
+When submitting an issue, please follow the [guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue.
 
-### Getting To Know Yeoman
+When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
+When submitting a new feature, add tests that cover the feature.
 
 ## License
 
