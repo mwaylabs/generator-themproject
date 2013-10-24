@@ -114,7 +114,8 @@ Generator.prototype.writeIndex = function writeIndex() {
     'bower_components/tmpl/tmpl.js',
     'bower_components/tmp2/tmp2.js',
     'bower_components/fastclick/lib/fastclick.js',
-    'bower_components/socket.io-client/dist/socket.io.js'
+    'bower_components/socket.io-client/dist/socket.io.js',
+    'bower_components/momentjs/moment.js'
   ];
 
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
