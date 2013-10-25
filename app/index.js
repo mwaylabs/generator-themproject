@@ -112,10 +112,10 @@ Generator.prototype.writeIndex = function writeIndex() {
     'bower_components/backbone/backbone.js',
     'bower_components/backbone.stickit/backbone.stickit.js',
     'bower_components/tmpl/tmpl.js',
-    'bower_components/tmp2/tmp2.js',
-    'bower_components/fastclick/lib/fastclick.js',
+    'bower_components/hammerjs/dist/hammer.js',
     'bower_components/socket.io-client/dist/socket.io.js',
-    'bower_components/momentjs/moment.js'
+    'bower_components/momentjs/moment.js',
+    'bower_components/tmp2/tmp2.js'
   ];
 
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
