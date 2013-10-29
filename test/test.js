@@ -16,13 +16,13 @@ var assert  = require('assert');
 // Something like:
 //
 //    generators()
-//      .register(require('../all'), 'tmp2:all')
 //      .register(require('../app'), 'tmp2:app')
 //      .register(require('../view'), 'tmp2:view')
 //      .register(require('../router'), 'tmp2:router')
 //      .register(require('../model'), 'tmp2:model')
 //      .register(require('../collection'), 'tmp2:collection')
 //      .register(require('../controller'), 'tmp2:controller')
+//      .register(require('../i18n'), 'tmp2:i18n')
 //
 // Or for the lazy guy:
 //
@@ -58,7 +58,6 @@ describe('The-M-Project generator test', function () {
 
   it('every generator can be required without throwing', function () {
     // not testing the actual run of generators yet
-    this.all = require('../all');
     this.app = require('../app');
     this.collection = require('../collection');
     this.model = require('../model');
@@ -163,6 +162,21 @@ describe('The-M-Project generator test', function () {
         controller.run([], function () {
           helpers.assertFiles([
             ['app/scripts/controllers/foo.js', /Controllers.FooController = M.Controller.extend\(\{/]
+          ]);
+        });
+        done();
+      });
+    });
+  });
+
+  describe('The-M-Project I18N', function () {
+    it('creates themproject i18n', function (done) {
+      var controller = helpers.createGenerator('tmp2:i18n', ['../../i18n'], ['foo']);
+
+      this.themproject.app.run({}, function () {
+        controller.run([], function () {
+          helpers.assertFiles([
+            ['app/scripts/i18n/foo.json', /{\n    "global.button.save": "Save document/]
           ]);
         });
         done();
