@@ -120,14 +120,14 @@ APPNAME.Routers.MyrouterRouter = M.Router.extend({
 
 ### I18N
 
-Generates a i18n in `app/scripts/i18n`.
+Generates a i18n in `app/i18n`.
 
 Example:
 ```
 yo tmp2:i18n en
 ```
 
-Produces `app/scripts/i18n/en.json`:
+Produces `app/i18n/en.json`:
 
 ```
 {

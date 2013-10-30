@@ -38,7 +38,7 @@ util.inherits(Generator, scriptBase);
 Generator.prototype.askFor = function askFor() {
   var cb = this.async();
 
-  this.artwork();
+  artwork();
 
   var prompts = [{
     type: 'confirm',
@@ -177,7 +177,7 @@ Generator.prototype.createAppFile = function createAppFile() {
   this.template('app.' + ext, 'app/scripts/main.' + ext);
 };
 
-Generator.prototype.artwork = function artwork() {
+var artwork = function artwork() {
   schema = [''];
   schema.push('####################');
   schema.push('####################');

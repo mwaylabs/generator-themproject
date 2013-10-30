@@ -16,6 +16,6 @@ function Generator() {
 util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.createI18NFiles = function createI18NFiles() {
-  var destFile = path.join('app/scripts/i18n', this.locale + '.json');
+  var destFile = path.join('app/i18n', this.locale + '.json');
   this.template('i18n.json', destFile);
 };

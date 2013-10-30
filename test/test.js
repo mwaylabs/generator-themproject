@@ -176,7 +176,7 @@ describe('The-M-Project generator test', function () {
       this.themproject.app.run({}, function () {
         controller.run([], function () {
           helpers.assertFiles([
-            ['app/scripts/i18n/foo.json', /{\n    "global.button.save": "Save document/]
+            ['app/i18n/foo.json', /{\n    "global.button.save": "Save document/]
           ]);
         });
         done();
