@@ -38,9 +38,7 @@ util.inherits(Generator, scriptBase);
 Generator.prototype.askFor = function askFor() {
   var cb = this.async();
 
-  // welcome message
-  console.log(this.yeoman);
-  console.log(':::::: TMP2 Generator ::::::');
+  this.artwork();
 
   var prompts = [{
     type: 'confirm',
@@ -114,7 +112,7 @@ Generator.prototype.writeIndex = function writeIndex() {
     'bower_components/tmpl/tmpl.js',
     'bower_components/hammerjs/dist/hammer.js',
     'bower_components/socket.io-client/dist/socket.io.js',
-    'bower_components/momentjs/moment.js',
+    'bower_components/momentjs/min/moment-with-langs.js',
     'bower_components/tmp2/tmp2.js'
   ];
 
@@ -177,4 +175,55 @@ Generator.prototype.createAppFile = function createAppFile() {
 
   var ext = this.options.coffee ? 'coffee' : 'js';
   this.template('app.' + ext, 'app/scripts/main.' + ext);
+};
+
+Generator.prototype.artwork = function artwork() {
+  schema = [''];
+  schema.push('####################');
+  schema.push('####################');
+  schema.push('####   ######   ####');
+  schema.push('####  #  ##  #  ####');
+  schema.push('####  ###  ###  ####');
+  schema.push('####  ########  ####');
+  schema.push('####################');
+  schema.push('####################');
+
+  var lineColor = 22;
+
+  function getBlue() {
+    return ' \u001b[48;5;' + lineColor + 'm';
+  };
+
+  function getGrey() {
+    return ' \u001b[0m';
+  };
+
+  function updateLineColor(s) {
+    if (s < schema.length / 2) {
+      lineColor += 1;
+    } else {
+      lineColor -= 1;
+    }
+  };
+
+  function draw() {
+    for (s in schema) {
+      var line = '';
+      var inner = schema[s].split('');
+      for (i in inner) {
+        if (inner[i] === '#') {
+          line += getBlue();
+        } else if (inner[i] === ' ') {
+          line += getGrey();
+        }
+      }
+      updateLineColor(s);
+      line += getGrey();
+      console.log(line);
+    }
+    console.log(getGrey());
+    console.log('    \u001b[25;5;28m The-M-Project');
+    console.log(getGrey());
+  };
+  draw();
 };
