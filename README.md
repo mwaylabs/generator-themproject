@@ -1,4 +1,5 @@
 # The-M-Project generator
+[![Build Status](https://travis-ci.org/mwaylabs/generator-tmp2.png)](https://travis-ci.org/mwaylabs/generator-tmp2)
 
 A [Yeoman](http://yeoman.io) generator for [The-M-Project](http://the-m-project.org).
 
