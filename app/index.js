@@ -1,3 +1,4 @@
+'use strict';
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
@@ -178,7 +179,7 @@ Generator.prototype.createAppFile = function createAppFile() {
 };
 
 var artwork = function artwork() {
-  schema = [''];
+  var schema = [''];
   schema.push('####################');
   schema.push('####################');
   schema.push('####   ######   ####');
@@ -207,6 +208,7 @@ var artwork = function artwork() {
   };
 
   function draw() {
+    var s, i;
     for (s in schema) {
       var line = '';
       var inner = schema[s].split('');
@@ -222,7 +224,7 @@ var artwork = function artwork() {
       console.log(line);
     }
     console.log(getGrey());
-    console.log('    \u001b[25;5;28m The-M-Project');
+    console.log('    The-M-Project');
     console.log(getGrey());
   };
   draw();
