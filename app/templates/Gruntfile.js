@@ -167,7 +167,7 @@ module.exports = function (grunt) {
         }<% } else { %>,
         jasmine: {
             all:{
-                src : ,'<%= yeoman.app %>/scripts/{,*/}*.js',
+                src : ,'<%%= yeoman.app %>/scripts/{,*/}*.js',
                 options: {
                     keepRunner: true,
                     specs : 'test/spec/**/*.js',
@@ -336,12 +336,28 @@ module.exports = function (grunt) {
                 files: {
                     src: [
                         // TODO support rev for i18n and images
-                        '<%= yeoman.dist %>/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/styles/fonts/{,*/}*.*'
+                        '<%%= yeoman.dist %>/scripts/{,*/}*.js',
+                        '<%%= yeoman.dist %>/styles/{,*/}*.css',
+                        '<%%= yeoman.dist %>/styles/fonts/{,*/}*.*'
                     ]
                 }
             }
+        },
+        manifest: {
+          generate: {
+            options: {
+              preferOnline: true,
+              timestamp: true,
+              master: ['<%%= yeoman.dist %>/index.html']
+            },
+            src: [
+              '<%%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+              '<%%= yeoman.dist %>/scripts/{,*/}*.js',
+              '<%%= yeoman.dist %>/styles/{,*/}*.css',
+              '<%%= yeoman.dist %>/i18n/*.json'
+            ],
+            dest: '<%%= yeoman.dist %>/manifest.appcache'
+          }
         }
     });
 
@@ -419,7 +435,8 @@ module.exports = function (grunt) {
         'uglify',
         'copy',
         'rev',
-        'usemin'
+        'usemin',
+        'manifest'
     ]);
 
     grunt.registerTask('default', [
