@@ -12,12 +12,12 @@ Make sure you have installed Node.js, Git and optionally, Ruby and Compass (if y
 Install: `npm install -g generator-tmp2`
 
 Make a new directory and `cd` into it:
-```
+```bash
 mkdir my-new-project && cd $_
 ```
 
 Run `yo tmp2`, optionally passing an app name:
-```
+```bash
 yo tmp2 [app-name]
 ```
 
@@ -27,13 +27,72 @@ Run `grunt` for building and `grunt server` for preview
 
 Available generators:
 
-* [tmp2:model](#model)
+* [tmp2](#app)
 * [tmp2:view](#view)
+* [tmp2:layout](#layout)
 * [tmp2:controller](#controller)
+* [tmp2:model](#model)
 * [tmp2:collection](#collection)
 * [tmp2:router](#router)
 * [tmp2:i18n](#i18n)
-  
+
+### App
+Create a new The-M-Project app and generate all the boilerplate for you.
+
+```bash
+yo tmp2
+```
+
+### View
+
+Generates a view in `app/scripts/views`.
+
+Example:
+```bash
+yo tmp2:view profile
+```
+
+Produces `app/scripts/views/profile.js`:
+
+```javascript
+APPNAME.Views.ProfileView = M.View.extend({
+   // ...
+})
+```
+### Layout
+
+Generates a layout in `app/scripts/layouts`.
+
+Example:
+```bash
+yo tmp2:layout custom
+```
+
+Produces `app/scripts/layouts/custom.js`:
+
+```javascript
+APPNAME.Layouts.CustomLayout = M.Layout.extend({
+   // ...
+})
+```
+
+### Controller
+
+Generates a controller in `app/scripts/controllers`.
+
+Example:
+```bash
+yo tmp2:controller register
+```
+
+Produces `app/scripts/controllers/register.js`:
+
+```javascript
+APPNAME.Controllers.RegisterController = M.Controller.extend({
+   // ...
+})
+```
+
 ### Model
 
 Generates a model in `app/scripts/models`.
@@ -50,52 +109,19 @@ APPNAME.Models.UserModel = M.Model.extend({
    // ...
 })
 ```
-### View
-
-Generates a view in `app/scripts/views`.
-
-Example:
-```
-yo tmp2:view profile
-```
-
-Produces `app/scripts/views/profile.js`:
-
-```
-APPNAME.Views.ProfileView = M.View.extend({
-   // ...
-})
-```
-
-### Controller
-
-Generates a controller in `app/scripts/controllers`.
-
-Example:
-```
-yo tmp2:controller register
-```
-
-Produces `app/scripts/controllers/register.js`:
-
-```
-APPNAME.Controllers.RegisterController = M.Controller.extend({
-   // ...
-})
-```
 
 ### Collection
 
 Generates a collection in `app/scripts/collections`.
 
 Example:
-```
+```bash
 yo tmp2:collection user
 ```
 
 Produces `app/scripts/collections/user.js`:
 
-```
+```javascript
 APPNAME.Collections.UserCollection = M.Collection.extend({
    // ...
 })
@@ -106,13 +132,13 @@ APPNAME.Collections.UserCollection = M.Collection.extend({
 Generates a router in `app/scripts/routers`.
 
 Example:
-```
+```bash
 yo tmp2:routers myRouter
 ```
 
 Produces `app/scripts/routers/myRouter.js`:
 
-```
+```javascript
 APPNAME.Routers.MyrouterRouter = M.Router.extend({
    // ...
 })
@@ -123,13 +149,13 @@ APPNAME.Routers.MyrouterRouter = M.Router.extend({
 Generates a i18n in `app/i18n`.
 
 Example:
-```
+```bash
 yo tmp2:i18n en
 ```
 
 Produces `app/i18n/en.json`:
 
-```
+```javascript
 {
     "global.button.save": "Save document",
     "global.button.emptyTrash": "Empty Trash ({{count}})",
