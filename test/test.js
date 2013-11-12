@@ -22,6 +22,7 @@ var assert  = require('assert');
 //      .register(require('../model'), 'tmp2:model')
 //      .register(require('../collection'), 'tmp2:collection')
 //      .register(require('../controller'), 'tmp2:controller')
+//      .register(require('../layout'), 'tmp2:layout')
 //      .register(require('../i18n'), 'tmp2:i18n')
 //
 // Or for the lazy guy:
@@ -64,6 +65,7 @@ describe('The-M-Project generator test', function () {
     this.router = require('../router');
     this.view = require('../view');
     this.controller = require('../controller');
+    this.layout = require('../layout');
   });
 
   it('creates expected files', function (done) {
@@ -171,12 +173,27 @@ describe('The-M-Project generator test', function () {
 
   describe('The-M-Project I18N', function () {
     it('creates themproject i18n', function (done) {
-      var controller = helpers.createGenerator('tmp2:i18n', ['../../i18n'], ['foo']);
+      var i18n = helpers.createGenerator('tmp2:i18n', ['../../i18n'], ['foo']);
 
       this.themproject.app.run({}, function () {
-        controller.run([], function () {
+        i18n.run([], function () {
           helpers.assertFiles([
             ['app/i18n/foo.json', /{\n    "global.button.save": "Save document/]
+          ]);
+        });
+        done();
+      });
+    });
+  });
+
+  describe('The-M-Project Layout', function () {
+    it('creates themproject layout', function (done) {
+      var layout = helpers.createGenerator('tmp2:layout', ['../../layout'], ['foo']);
+
+      this.themproject.app.run({}, function () {
+        layout.run([], function () {
+          helpers.assertFiles([
+            ['app/scripts/layouts/foo.js', /Layouts.FooLayout = M.Layout.extend\(\{/]
           ]);
         });
         done();
