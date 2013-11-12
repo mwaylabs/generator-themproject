@@ -155,7 +155,7 @@ yo tmp2:i18n en
 
 Produces `app/i18n/en.json`:
 
-```javascript
+```json
 {
     "global.button.save": "Save document",
     "global.button.emptyTrash": "Empty Trash ({{count}})",
