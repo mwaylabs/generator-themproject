@@ -408,6 +408,16 @@ module.exports = function (grunt) {
         grunt.task.run(tasks);
     });
 
+    grunt.registerTask('addManifestAttribute', '', function() {
+        var path = grunt.template.process('<%%= yeoman.dist %>/index.html');
+        var content = grunt.file.read(path);
+
+        var regex = new RegExp('(<html+(?![^>]*\bmanifest\b))', 'g');
+        content = content.replace(regex, '$1 manifest="cache.manifest"');
+
+        grunt.file.write(path, content);
+    });
+
     grunt.registerTask('test', [
         'clean:server',<% if (useCoffee) { %>
         'coffee',<% } %>
@@ -436,7 +446,8 @@ module.exports = function (grunt) {
         'copy',
         'rev',
         'usemin',
-        'manifest'
+        'manifest',
+        'addManifestAttribute'
     ]);
 
     grunt.registerTask('default', [
