@@ -2,15 +2,24 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title><%= _.slugify(appname) %></title>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
         <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,width=device-width">
 
+        <link rel="icon" type="image/png" href="icons/favicon.png">
+        <link rel="apple-touch-icon" href="icons/touch-icon-iphone.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="icons/touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="icons/touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="icons/touch-icon-ipad-retina.png">
+
         <!-- build:css styles/vendor.css -->
-        <link rel="stylesheet" href="bower_components/themproject/dist/bootstrap_custom.css">
         <link rel="stylesheet" href="bower_components/themproject/dist/themproject.css">
-        <link rel="stylesheet" href="bower_components/themproject/dist/themproject_theme.css">
-        <link rel="stylesheet" href="bower_components/themproject/dist/themproject_android_theme.css">
-        <link rel="stylesheet" href="bower_components/themproject/dist/themproject_ios_theme.css">
+        <link rel="stylesheet" href="bower_components/themproject/dist/themproject_android_light.css">
+        <link rel="stylesheet" href="bower_components/themproject/dist/themproject_android_dark.css">
+        <link rel="stylesheet" href="bower_components/themproject/dist/themproject_ios.css">
+        <link rel="stylesheet" href="bower_components/themproject/dist/bootstrap_custom.css">
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
         <!-- endbuild -->
 
         <!-- build:css(.tmp) styles/main.css -->

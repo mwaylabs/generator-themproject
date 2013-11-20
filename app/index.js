@@ -44,7 +44,7 @@ Generator.prototype.askFor = function askFor() {
   var prompts = [{
     type: 'confirm',
     name: 'sass',
-    message: 'Use Sass?',
+    message: 'Would you like to Use Sass?',
     default: false
   }];
 
@@ -149,7 +149,12 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/scripts/vendor/');
   this.mkdir('app/styles');
   this.mkdir('app/images');
-  this.template('app/favicon.ico');
+  this.mkdir('app/icons');
+  this.template('app/icons/favicon.png');
+  this.template('app/icons/touch-icon-ipad.png');
+  this.template('app/icons/touch-icon-ipad-retina.png');
+  this.template('app/icons/touch-icon-iphone.png');
+  this.template('app/icons/touch-icon-iphone-retina.png');
   this.write('app/index.html', this.indexFile);
 };
 
