@@ -1,8 +1,8 @@
-/*global <%= _.camelize(appname) %>, The-M-Project*/
+/*global <%= _.camelize(appname) %>, M*/
 
 <%= _.camelize(appname) %>.Collections = <%= _.camelize(appname) %>.Collections || {};
 
-(function () {
+(function() {
     'use strict';
 
     <%= _.camelize(appname) %>.Collections.<%= _.classify(name) %>Collection = M.Collection.extend({

@@ -4,6 +4,9 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var scriptBase = require('../script-base');
 
+var scaffoldingType = '';
+var SCAFFOLDING_TYPE_NONE = 'none';
+var SCAFFOLDING_TYPE_SWITCH_LAYOUT = 'switchlayout';
 
 var Generator = module.exports = function Generator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -11,7 +14,8 @@ var Generator = module.exports = function Generator(args, options, config) {
   if (typeof this.env.options.appPath === 'undefined') {
     try {
       this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
-    } catch (e) {}
+    } catch (e) {
+    }
     this.env.options.appPath = this.env.options.appPath || 'app';
   }
 
@@ -41,15 +45,34 @@ Generator.prototype.askFor = function askFor() {
 
   artwork();
 
-  var prompts = [{
-    type: 'confirm',
-    name: 'sass',
-    message: 'Would you like to Use Sass?',
-    default: false
-  }];
+  var prompts = [
+    {
+      type: 'rawlist',
+      name: 'scaffoldingType',
+      message: 'Would you like to create an example?',
+      choices: [
+        {
+          name: 'Switch Layout',
+          value: SCAFFOLDING_TYPE_SWITCH_LAYOUT
+        },
+        {
+          name: 'None',
+          value: SCAFFOLDING_TYPE_NONE
+        }
+      ],
+      default: SCAFFOLDING_TYPE_SWITCH_LAYOUT
+    },
+    {
+      type: 'confirm',
+      name: 'sass',
+      message: 'Would you like to use Sass?',
+      default: false
+    }
+  ];
 
   this.prompt(prompts, function (answers) {
     this.useSass = answers.sass;
+    scaffoldingType = answers.scaffoldingType;
 
     // TODO Implement CoffeeScript, requireJS support
     this.includeRequireJS = false;
@@ -125,8 +148,7 @@ Generator.prototype.writeIndex = function writeIndex() {
     searchPath: ['.tmp', 'app'],
     optimizedPath: 'scripts/main.js',
     sourceFileList: [
-      'scripts/main.js',
-      'scripts/templates.js'
+      'scripts/main.js'
     ]
   });
 };
@@ -181,6 +203,13 @@ Generator.prototype.createAppFile = function createAppFile() {
 
   var ext = this.options.coffee ? 'coffee' : 'js';
   this.template('app.' + ext, 'app/scripts/main.' + ext);
+};
+
+Generator.prototype.copyApp = function copyApp() {
+
+  if (scaffoldingType) {
+    this.directory('../templates/' + scaffoldingType + '/', 'app/');
+  }
 };
 
 var artwork = function artwork() {

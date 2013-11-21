@@ -151,8 +151,7 @@ describe('The-M-Project generator test', function () {
       this.themproject.app.run({}, function () {
         view.run([], function () {
           helpers.assertFiles([
-            ['app/scripts/views/foo.js', /Views.FooView = M.View.extend\(\{(.|\n)*app\/scripts\/templates\/foo.ejs/],
-            'app/scripts/templates/foo.ejs'
+            ['app/scripts/views/foo.js', /Views.FooView = M.View.extend\(\{/]
           ]);
         });
         done();

@@ -339,20 +339,20 @@ module.exports = function (grunt) {
             }
         },
         manifest: {
-          generate: {
-            options: {
-              preferOnline: true,
-              timestamp: true,
-              master: ['<%%= yeoman.dist %>/index.html']
-            },
-            src: [
-              '<%%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-              '<%%= yeoman.dist %>/scripts/{,*/}*.js',
-              '<%%= yeoman.dist %>/styles/{,*/}*.css',
-              '<%%= yeoman.dist %>/i18n/*.json'
-            ],
-            dest: '<%%= yeoman.dist %>/manifest.appcache'
-          }
+            generate: {
+                options: {
+                    preferOnline: true,
+                    timestamp: true,
+                    master: ['<%%= yeoman.dist %>/index.html']
+                },
+                src: [
+                    '<%%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                    '<%%= yeoman.dist %>/scripts/{,*/}*.js',
+                    '<%%= yeoman.dist %>/styles/{,*/}*.css',
+                    '<%%= yeoman.dist %>/i18n/*.json'
+                ],
+                dest: '<%%= yeoman.dist %>/manifest.appcache'
+            }
         }
     });
 

@@ -1,13 +1,11 @@
-/*global <%= _.camelize(appname) %>, The-M-Project, JST*/
+/*global <%= _.camelize(appname) %>, M*/
 
 <%= _.camelize(appname) %>.Views = <%= _.camelize(appname) %>.Views || {};
 
-(function () {
+(function() {
     'use strict';
 
     <%= _.camelize(appname) %>.Views.<%= _.classify(name) %>View = M.View.extend({
-
-        template: JST['<%= jst_path %>']
 
     });
 
