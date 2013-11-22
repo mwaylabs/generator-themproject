@@ -77,3 +77,21 @@ Generator.prototype.isUsingRequireJS = function isUsingRequireJS() {
     return false;
   }
 };
+
+Generator.prototype.appScaffolding = function appScaffolding(type) {
+
+  var tasks = {
+    scripts: [
+      'views/absinthe',
+      'views/beer',
+      'controllers/absinthe',
+      'controllers/beer'
+    ]
+  }
+  while (tasks.scripts.length > 0) {
+    this.addScriptToIndex(tasks.scripts.shift());
+  }
+
+  this.directory('../templates/' + type + '/', 'app/');
+}
+
