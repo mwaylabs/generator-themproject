@@ -208,7 +208,12 @@ Generator.prototype.createAppFile = function createAppFile() {
 Generator.prototype.copyApp = function copyApp() {
 
   if (scaffoldingType) {
-    //this.directory('../templates/' + scaffoldingType + '/', 'app/');
+    this.addScriptToIndex('views/absinthe');
+    this.addScriptToIndex('views/beer');
+    this.addScriptToIndex('controllers/absinthe');
+    this.addScriptToIndex('controllers/beer');
+
+    this.directory('../templates/' + scaffoldingType + '/', 'app/');
   }
 };
 

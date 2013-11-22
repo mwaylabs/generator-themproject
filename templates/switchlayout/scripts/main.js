@@ -15,8 +15,8 @@
                     '': 'absintheController',
                     'beer': 'beerController'
                 },
-                absintheController: global.SampleApp.Controllers.AbsintheController.create(),
-                beerController: global.SampleApp.Controllers.BeerController.create()
+                absintheController: global.<%= _.camelize(appname) %>.Controllers.AbsintheController.create(),
+                beerController: global.<%= _.camelize(appname) %>.Controllers.BeerController.create()
             },
             locales: [
                 {locale: 'en'}
