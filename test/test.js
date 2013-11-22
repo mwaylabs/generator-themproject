@@ -48,7 +48,7 @@ describe('The-M-Project generator test', function () {
 
       helpers.mockPrompt(this.themproject.app, {
         //features: ['compassBootstrap'],
-        sass: true,
+        compass: true,
         includeRequireJS: false
       });
 
