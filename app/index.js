@@ -64,14 +64,14 @@ Generator.prototype.askFor = function askFor() {
     },
     {
       type: 'confirm',
-      name: 'sass',
-      message: 'Would you like to use Sass?',
+      name: 'compass',
+      message: 'Would you like to use compass?',
       default: false
     }
   ];
 
   this.prompt(prompts, function (answers) {
-    this.useSass = answers.sass;
+    this.useCompass = answers.compass;
     scaffoldingType = answers.scaffoldingType;
 
     // TODO Implement CoffeeScript, requireJS support
@@ -114,7 +114,7 @@ Generator.prototype.packageJSON = function packageJSON() {
 
 Generator.prototype.mainStylesheet = function mainStylesheet() {
   var ext = '.css';
-  if (this.useSass) {
+  if (this.useCompass) {
     ext = '.scss';
   }
   this.write('app/styles/main' + ext, '');
@@ -208,7 +208,7 @@ Generator.prototype.createAppFile = function createAppFile() {
 Generator.prototype.copyApp = function copyApp() {
 
   if (scaffoldingType) {
-    this.directory('../templates/' + scaffoldingType + '/', 'app/');
+    //this.directory('../templates/' + scaffoldingType + '/', 'app/');
   }
 };
 

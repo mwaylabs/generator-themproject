@@ -50,7 +50,7 @@ module.exports = function (grunt) {
             coffeeTest: {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
-            },<% } %><% if (useSass) { %>
+            },<% } %><% if (useCompass) { %>
             compass: {
                 files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
@@ -203,7 +203,7 @@ module.exports = function (grunt) {
                     ext: '.js'
                 }]
             }
-        },<% } %><% if (useSass) { %>
+        },<% } %><% if (useCompass) { %>
         compass: {
             options: {
                 sassDir: '<%%= yeoman.app %>/styles',
@@ -370,7 +370,7 @@ module.exports = function (grunt) {
                 'clean:server',<% if (useCoffee) { %>
                 'coffee',<% } %>
                 'createDefaultTemplate',
-                'tmpl',<% if (useSass) { %>
+                'tmpl',<% if (useCompass) { %>
                 'compass:server',<% } %>
                 'connect:test',
                 'watch:livereload'
@@ -386,7 +386,7 @@ module.exports = function (grunt) {
             'clean:server',<% if (useCoffee) { %>
             'coffee:dist',<% } %>
             'createDefaultTemplate',
-            'tmpl',<% if (useSass) { %>
+            'tmpl',<% if (useCompass) { %>
             'compass:server',<% } %>
             'configureProxies',
             'connect:' + reloadType
@@ -429,7 +429,7 @@ module.exports = function (grunt) {
         'clean:server',<% if (useCoffee) { %>
         'coffee',<% } %>
         'createDefaultTemplate',
-        'tmpl',<% if (useSass) { %>
+        'tmpl',<% if (useCompass) { %>
         'compass',<% } %><% if(testFramework === 'mocha') { %>
         'connect:test',
         'mocha',<% } else { %>
@@ -441,7 +441,7 @@ module.exports = function (grunt) {
         'clean:dist',<% if (useCoffee) { %>
         'coffee',<% } %>
         'createDefaultTemplate',
-        'tmpl',<% if (useSass) { %>
+        'tmpl',<% if (useCompass) { %>
         'compass:dist',<% } %>
         'useminPrepare',<% if (includeRequireJS) { %>
         'requirejs',<% } %>
