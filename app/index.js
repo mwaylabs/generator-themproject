@@ -4,7 +4,6 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var scriptBase = require('../script-base');
 
-var scaffoldingType = '';
 var SCAFFOLDING_TYPE_NONE = 'none';
 var SCAFFOLDING_TYPE_SWITCH_LAYOUT = 'switchlayout';
 
@@ -45,22 +44,14 @@ Generator.prototype.askFor = function askFor() {
 
   artwork();
 
+  var templateCollection = this.getScaffoldingTemplates();
+
   var prompts = [
     {
       type: 'rawlist',
-      name: 'scaffoldingType',
+      name: 'scaffoldingTemplate',
       message: 'Would you like to create an example?',
-      choices: [
-        {
-          name: 'Switch Layout',
-          value: SCAFFOLDING_TYPE_SWITCH_LAYOUT
-        },
-        {
-          name: 'None',
-          value: SCAFFOLDING_TYPE_NONE
-        }
-      ],
-      default: SCAFFOLDING_TYPE_SWITCH_LAYOUT
+      choices: templateCollection
     },
     {
       type: 'confirm',
@@ -72,7 +63,7 @@ Generator.prototype.askFor = function askFor() {
 
   this.prompt(prompts, function (answers) {
     this.useCompass = answers.compass;
-    scaffoldingType = answers.scaffoldingType;
+    this.scaffoldingTemplate = templateCollection[answers.scaffoldingTemplate];
 
     // TODO Implement CoffeeScript, requireJS support
     this.includeRequireJS = false;
@@ -205,11 +196,19 @@ Generator.prototype.createAppFile = function createAppFile() {
   this.template('app.' + ext, 'app/scripts/main.' + ext);
 };
 
-Generator.prototype.copyApp = function copyApp() {
-
-  if (scaffoldingType) {
-    this.appScaffolding(scaffoldingType);
+Generator.prototype.scaffoldingApp = function scaffoldingApp() {
+  if (!this.scaffoldingTemplate || this.scaffoldingTemplate && this.scaffoldingTemplate.value === 0) {
+    return;
   }
+
+  // Adds scripts to index.html
+  while (this.scaffoldingTemplate.scripts.length > 0) {
+    this.addScriptToIndex(this.scaffoldingTemplate.scripts.shift());
+  }
+
+  // Copy files into the project and force overrides
+  this.conflicter.force = true;
+  this.directory(this.scaffoldingTemplate.path + '/files', 'app/');
 };
 
 var artwork = function artwork() {

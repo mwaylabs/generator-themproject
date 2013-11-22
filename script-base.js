@@ -1,5 +1,6 @@
 'use strict';
 var path = require('path');
+var fs = require('fs');
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var backboneUtils = require('./util.js');
@@ -10,7 +11,8 @@ var Generator = module.exports = function Generator() {
   if (typeof this.env.options.appPath === 'undefined') {
     try {
       this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
-    } catch (err) {}
+    } catch (err) {
+    }
     this.env.options.appPath = this.env.options.appPath || 'app';
   }
 
@@ -78,20 +80,34 @@ Generator.prototype.isUsingRequireJS = function isUsingRequireJS() {
   }
 };
 
-Generator.prototype.appScaffolding = function appScaffolding(type) {
+/**
+ * Generate an application template.
+ *
+ * @param type
+ */
+Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates() {
 
-  var tasks = {
-    scripts: [
-      'views/absinthe',
-      'views/beer',
-      'controllers/absinthe',
-      'controllers/beer'
-    ]
-  }
-  while (tasks.scripts.length > 0) {
-    this.addScriptToIndex(tasks.scripts.shift());
-  }
+  var index = 0;
+  var result = [
+    {name: 'Empty', value:index++}
+  ];
 
-  this.directory('../templates/' + type + '/', 'app/');
+  var basePath = __dirname + '/templates';
+  var files = fs.readdirSync(basePath);
+  files.forEach(function (file) {
+    var filePath = basePath + '/' + file;
+    var stats = fs.lstatSync(filePath);
+    if (stats.isDirectory() && fs.existsSync(filePath + '/package.json')) {
+
+      // Read file which contains the setup instructions
+      var pkg = this.read(filePath + '/package.json', 'utf8');
+      pkg = JSON.parse(pkg);
+      pkg.path = file;
+      pkg.value = index++;
+      result.push(pkg);
+    }
+  }.bind(this));
+
+  return result;
 }
 
