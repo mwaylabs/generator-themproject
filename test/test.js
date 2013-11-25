@@ -87,6 +87,7 @@ describe('The-M-Project generator test', function () {
       '.editorconfig',
       'Gruntfile.js',
       'package.json',
+      'app/scripts/config.js',
       'app/scripts/main.js',
       'app/styles/main.scss'
     ];

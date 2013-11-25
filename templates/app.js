@@ -4,8 +4,7 @@
 (function(global) {
     'use strict';
 
-    M.APPLICATION_NAME = '<%= _.camelize(appname) %>';
-    global.<%= _.camelize(appname) %> = M.Application.design();
+    global.<%= _.camelize(appname) %> = M.Application.extend().create(m_config);
 
     $(document).ready(function() {
 

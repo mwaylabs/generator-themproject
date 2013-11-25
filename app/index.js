@@ -103,6 +103,10 @@ Generator.prototype.packageJSON = function packageJSON() {
   this.template('_package.json', 'package.json');
 };
 
+Generator.prototype.configJS = function configJS() {
+  this.template('_config.js', 'app/scripts/config.js');
+};
+
 Generator.prototype.mainStylesheet = function mainStylesheet() {
   var ext = '.css';
   if (this.useCompass) {
@@ -139,6 +143,7 @@ Generator.prototype.writeIndex = function writeIndex() {
     searchPath: ['.tmp', 'app'],
     optimizedPath: 'scripts/main.js',
     sourceFileList: [
+      'scripts/config.js',
       'scripts/main.js'
     ]
   });
