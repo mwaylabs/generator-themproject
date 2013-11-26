@@ -16,9 +16,9 @@ Make a new directory and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo tmp2`, optionally passing an app name:
+Run `yo tmp2`:
 ```bash
-yo tmp2 [app-name]
+yo tmp2
 ```
 
 Run `grunt` for building and `grunt server` for preview
