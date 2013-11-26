@@ -1,4 +1,4 @@
-# The-M-Project generator [![Build Status](https://travis-ci.org/mwaylabs/generator-tmp2.png)](https://travis-ci.org/mwaylabs/generator-tmp2) +    "test": "istanbul cover _mocha --report lcovonly -- test/*.js --reporter list --timeout 100000 && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+# The-M-Project generator [![Build Status](https://travis-ci.org/mwaylabs/generator-tmp2.png)](https://travis-ci.org/mwaylabs/generator-tmp2) [![Coverage Status](https://coveralls.io/repos/mwaylabs/generator-tmp2/badge.png?branch=master)](https://coveralls.io/r/mwaylabs/generator-tmp2?branch=master)
 
 A [Yeoman](http://yeoman.io) generator for [The-M-Project](http://the-m-project.org).
 
