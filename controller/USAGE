@@ -1,0 +1,8 @@
+Description:
+    Creates a new controller which inherits from M.Controller
+
+Example:
+    yo tmp2:controller foo
+
+    This will create:
+        app/scripts/controllers/foo.js

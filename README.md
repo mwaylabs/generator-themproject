@@ -49,13 +49,13 @@ Generates a view in `app/scripts/views`.
 
 Example:
 ```bash
-yo tmp2:view profile
+yo tmp2:view foo
 ```
 
-Produces `app/scripts/views/profile.js`:
+Produces `app/scripts/views/foo.js`:
 
 ```javascript
-APPNAME.Views.ProfileView = M.View.extend({
+APPNAME.Views.FooView = M.View.extend({
    // ...
 })
 ```
@@ -65,13 +65,13 @@ Generates a layout in `app/scripts/layouts`.
 
 Example:
 ```bash
-yo tmp2:layout custom
+yo tmp2:layout foo
 ```
 
-Produces `app/scripts/layouts/custom.js`:
+Produces `app/scripts/layouts/foo.js`:
 
 ```javascript
-APPNAME.Layouts.CustomLayout = M.Layout.extend({
+APPNAME.Layouts.FooLayout = M.Layout.extend({
    // ...
 })
 ```
@@ -82,13 +82,13 @@ Generates a controller in `app/scripts/controllers`.
 
 Example:
 ```bash
-yo tmp2:controller register
+yo tmp2:controller foo
 ```
 
-Produces `app/scripts/controllers/register.js`:
+Produces `app/scripts/controllers/foo.js`:
 
 ```javascript
-APPNAME.Controllers.RegisterController = M.Controller.extend({
+APPNAME.Controllers.FooController = M.Controller.extend({
    // ...
 })
 ```
@@ -99,13 +99,13 @@ Generates a model in `app/scripts/models`.
 
 Example:
 ```
-yo tmp2:model user
+yo tmp2:model foo
 ```
 
-Produces `app/scripts/models/user.js`:
+Produces `app/scripts/models/foo.js`:
 
 ```
-APPNAME.Models.UserModel = M.Model.extend({
+APPNAME.Models.FooModel = M.Model.extend({
    // ...
 })
 ```
@@ -116,13 +116,13 @@ Generates a collection in `app/scripts/collections`.
 
 Example:
 ```bash
-yo tmp2:collection user
+yo tmp2:collection foo
 ```
 
-Produces `app/scripts/collections/user.js`:
+Produces `app/scripts/collections/foo.js`:
 
 ```javascript
-APPNAME.Collections.UserCollection = M.Collection.extend({
+APPNAME.Collections.FooCollection = M.Collection.extend({
    // ...
 })
 ```
@@ -133,13 +133,13 @@ Generates a router in `app/scripts/routers`.
 
 Example:
 ```bash
-yo tmp2:routers myRouter
+yo tmp2:routers foo
 ```
 
-Produces `app/scripts/routers/myRouter.js`:
+Produces `app/scripts/routers/foo.js`:
 
 ```javascript
-APPNAME.Routers.MyrouterRouter = M.Router.extend({
+APPNAME.Routers.FooRouter = M.Router.extend({
    // ...
 })
 ```

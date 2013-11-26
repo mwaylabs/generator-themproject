@@ -1,0 +1,8 @@
+Description:
+    Creates a new router which inherits from M.Router
+
+Example:
+    yo tmp2:router foo
+
+    This will create:
+        app/scripts/routes/foo.js
