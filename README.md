@@ -16,7 +16,7 @@ Make a new directory and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo tmp2`:
+Run the yo generator:
 ```bash
 yo tmp2
 ```
