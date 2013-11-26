@@ -11,16 +11,16 @@
 
         headline: M.View.extend({
             tagName: 'h1',
-            value: M.I18N.get('beer.headline'),
+            value: M.I18N.get('beer.headline')
         }),
 
         text: M.View.extend({
-            value: M.I18N.get('beer.text'),
+            value: M.I18N.get('beer.text')
         }),
 
         subline: M.View.extend({
             tagName: 'h2',
-            value: M.I18N.get('beer.subline'),
+            value: M.I18N.get('beer.subline')
         }),
 
         links: M.ButtonGroupView.extend({
