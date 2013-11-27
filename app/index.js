@@ -130,6 +130,8 @@ Generator.prototype.writeIndex = function writeIndex() {
     'bower_components/backbone.stickit/backbone.stickit.js',
     'bower_components/tmpl/tmpl.js',
     'bower_components/hammerjs/dist/hammer.js',
+    'bower_components/fastclick/lib/fastclick.js',
+    'bower_components/shake.js/shake.js',
     'bower_components/socket.io-client/dist/socket.io.js',
     'bower_components/momentjs/min/moment-with-langs.js',
     'bower_components/themproject/dist/themproject.js'

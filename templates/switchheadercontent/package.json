@@ -1,0 +1,10 @@
+{
+  "name": "Switch Layout (Header/Content)",
+  "version": "1.0.0",
+  "scripts": [
+    "views/absinthe",
+    "views/beer",
+    "controllers/absinthe",
+    "controllers/beer"
+  ]
+}
