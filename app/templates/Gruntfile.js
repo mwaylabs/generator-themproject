@@ -393,7 +393,7 @@ module.exports = function (grunt) {
         ];
 
         if(reloadType === 'livereload') {
-            tasks.push('watch');
+            tasks.push('watch:livereload');
         }
 
         if( defaultOption('openBrowser', cfg.server.openBrowser) ) {
