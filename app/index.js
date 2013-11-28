@@ -29,6 +29,12 @@ var Generator = module.exports = function Generator(args, options, config) {
     }
   });
 
+  var generators = 'tmp2|app|models|collections|views|layouts|controllers|routes'.split('|');
+  if (generators.indexOf(this.generatorName) === -1) {
+    console.log('Invalid command \'' + this.generatorName + '\'');
+    process.kill();
+  }
+
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
 
   this.on('end', function () {
