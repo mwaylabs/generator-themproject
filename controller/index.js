@@ -20,11 +20,9 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
   var destFile = path.join('app/scripts/controllers', this.name + ext);
   this.isRequireJsApp = this.isUsingRequireJS();
 
-  this.scaffolding_applicationStart = 'console.log("hier");'
-
   if (!this.isRequireJsApp) {
     this.template('controller' + ext, destFile);
-    this.addScriptToIndex('controllers/' + this.name);
+    this.addScriptToIndexGroup('controllers/' + this.name, 'controllers');
     return;
   }
 

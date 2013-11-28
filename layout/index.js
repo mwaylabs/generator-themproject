@@ -21,7 +21,7 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
 
   if (!this.isRequireJsApp) {
     this.template('layout' + ext, destFile);
-    this.addScriptToIndex('layouts/' + this.name);
+    this.addScriptToIndexGroup('layouts/' + this.name, 'layouts');
     return;
   }
 

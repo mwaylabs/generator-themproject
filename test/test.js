@@ -89,7 +89,13 @@ describe('The-M-Project generator test', function () {
       'package.json',
       'app/scripts/config.js',
       'app/scripts/main.js',
-      'app/styles/main.scss'
+      'app/styles/main.scss',
+      ['app/index.html', /<!-- m:models -->/],
+      ['app/index.html', /<!-- m:collections -->/],
+      ['app/index.html', /<!-- m:views -->/],
+      ['app/index.html', /<!-- m:layouts -->/],
+      ['app/index.html', /<!-- m:controllers -->/],
+      ['app/index.html', /<!-- m:routes -->/]
     ];
 
     this.themproject.app.run({}, function () {

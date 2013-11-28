@@ -3,6 +3,7 @@ var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var scriptBase = require('../script-base');
+var backboneUtils = require('../util.js');
 
 var SCAFFOLDING_TYPE_NONE = 'none';
 var SCAFFOLDING_TYPE_SWITCH_LAYOUT = 'switchlayout';
@@ -149,6 +150,16 @@ Generator.prototype.writeIndex = function writeIndex() {
       'scripts/main.js'
     ]
   });
+
+  var order = 'models|collections|views|layouts|controllers|routes'.split('|');
+  order.forEach(function (group, i) {
+    order[i] = '<!-- m:' + group + ' -->';
+  });
+  this.indexFile = backboneUtils.rewrite({
+    needle: '<!-- endbuild -->',
+    haystack: this.indexFile,
+    splicable: order
+  });
 };
 
 Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs() {
@@ -210,7 +221,8 @@ Generator.prototype.scaffoldingApp = function scaffoldingApp() {
 
   // Adds scripts to index.html
   while (this.scaffoldingTemplate.scripts.length > 0) {
-    this.addScriptToIndex(this.scaffoldingTemplate.scripts.shift());
+    var name = this.scaffoldingTemplate.scripts.shift();
+    this.addScriptToIndex(name, name.split('/')[0]);
   }
 
   // Copy files into the project and force overrides

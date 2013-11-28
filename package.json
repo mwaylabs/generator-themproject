@@ -1,6 +1,6 @@
 {
   "name": "generator-tmp2",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Yeoman generator for The-M-Project",
   "keywords": [
     "yeoman-generator",
@@ -21,7 +21,7 @@
     "url": "git://github.com/mwaylabs/generator-tmp2.git"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "istanbul cover _mocha --report lcovonly -- test/*.js --reporter list --timeout 100000 && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "dependencies": {
     "yeoman-generator": "~0.13.0"

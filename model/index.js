@@ -36,7 +36,7 @@ Generator.prototype.createModelFiles = function createModelFiles() {
 
   if (!this.isRequireJsApp) {
     this.template('model' + ext, destFile);
-    this.addScriptToIndex('models/' + this.name);
+    this.addScriptToIndexGroup('models/' + this.name, 'models');
     return;
   }
 

@@ -23,7 +23,7 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
 
   if (!this.isRequireJsApp) {
     this.template('router' + ext, destFile);
-    this.addScriptToIndex('routes/' + this.name);
+    this.addScriptToIndexGroup('routes/' + this.name, 'routes');
     return;
   }
 

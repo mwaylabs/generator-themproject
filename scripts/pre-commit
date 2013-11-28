@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Run node tests
-npm test
+mocha --reporter spec

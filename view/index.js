@@ -23,7 +23,7 @@ Generator.prototype.createViewFiles = function createViewFiles() {
 
   if (!isRequireJsApp) {
     this.template('view' + ext, destFile);
-    this.addScriptToIndex('views/' + this.name);
+    this.addScriptToIndexGroup('views/' + this.name, 'views');
     return;
   }
 

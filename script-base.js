@@ -46,15 +46,19 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
+Generator.prototype.addScriptToIndexGroup = function (script, group) {
+  this.addScriptToIndex(script, '<!-- m:' + group + ' -->');
+}
 
-Generator.prototype.addScriptToIndex = function (script) {
+Generator.prototype.addScriptToIndex = function (script, needle) {
   try {
+    needle = needle || '<!-- endbuild -->';
     var appPath = this.env.options.appPath;
     var fullPath = path.join(appPath, 'index.html');
 
     backboneUtils.rewriteFile({
       file: fullPath,
-      needle: '<!-- endbuild -->',
+      needle: needle,
       splicable: [
         '<script src="scripts/' + script + '.js"></script>'
       ]
