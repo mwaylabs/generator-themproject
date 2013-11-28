@@ -6,6 +6,8 @@
     'use strict';
 
     <%= _.camelize(appname) %>.Views.<%= _.classify(name) %>View = M.View.extend({
+        grid: 'col-xs-12'
+    }, {
 
     });
 
