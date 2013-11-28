@@ -13,7 +13,11 @@
 
         show: function () {
             console.log('<%= _.classify(name) %>Controller.show()');
-        }
+        },
+
+        applicationReady: function () {
+            console.log('<%= _.classify(name) %>Controller.applicationReady()');
+        },
     });
 
 })();
