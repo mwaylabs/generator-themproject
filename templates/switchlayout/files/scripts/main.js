@@ -12,10 +12,12 @@
             routing: {
                 routes: {
                     '': 'absintheController',
-                    'beer': 'beerController'
+                    'beer': 'beerController',
+                    //m:routes
                 },
                 absintheController: global.<%= _.camelize(appname) %>.Controllers.AbsintheController.create(),
-                beerController: global.<%= _.camelize(appname) %>.Controllers.BeerController.create()
+                beerController: global.<%= _.camelize(appname) %>.Controllers.BeerController.create(),
+                //m:controllers
             }
         });
     });

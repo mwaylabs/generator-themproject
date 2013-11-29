@@ -1,6 +1,6 @@
 {
   "name": "generator-tmp2",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Yeoman generator for The-M-Project",
   "keywords": [
     "yeoman-generator",
@@ -34,7 +34,8 @@
     "mocha": "~1.12.0",
     "coveralls": "~2.3.0",
     "mocha-lcov-reporter": "0.0.1",
-    "istanbul": "~0.1.44"
+    "istanbul": "~0.1.44",
+    "underscore.string": "~2.3.1"
   },
   "engines": {
     "node": ">=0.8.0",

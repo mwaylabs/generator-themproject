@@ -11,8 +11,9 @@
         global.<%= _.camelize(appname) %>.start({
             routing: {
                 routes: {
-
+                    //m:routes
                 }
+                //m:controllers
             }
         });
     });
