@@ -299,13 +299,21 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     dot: true,
+                    cwd: '<%= yeoman.app %>/bower_components/font-awesome/',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        'fonts/{,*/}*.*'
+                    ]
+                },{
+                    expand: true,
+                    dot: true,
                     cwd: '<%%= yeoman.app %>',
                     dest: '<%%= yeoman.dist %>',
                     src: [
                         '*.html',
                         'icons/*.png',
                         'images/{,*/}*.{webp,gif}',
-                        'styles/fonts/{,*/}*.*',
+                        'fonts/{,*/}*.*',
                         'i18n/*.json'
                     ]
                 }]
@@ -333,7 +341,7 @@ module.exports = function (grunt) {
                         // TODO support rev for i18n and images
                         '<%%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%%= yeoman.dist %>/styles/fonts/{,*/}*.*'
+                        '<%%= yeoman.dist %>/fonts/{,*/}*.*'
                     ]
                 }
             }
