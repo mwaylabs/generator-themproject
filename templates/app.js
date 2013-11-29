@@ -12,7 +12,7 @@
             routing: {
                 routes: {
                     //m:routes
-                }
+                },
                 //m:controllers
             }
         });
