@@ -1,4 +1,4 @@
-/*global <%= _.camelize(appname) %>, M*/
+/*global <%= _.camelize(appname) %>*/
 
 <%= _.camelize(appname) %>.Views = <%= _.camelize(appname) %>.Views || {};
 
@@ -12,38 +12,6 @@
         headline: M.View.extend({
             tagName: 'h1',
             value: M.I18N.get('beer.headline')
-        }),
-
-        text: M.View.extend({
-            value: M.I18N.get('beer.text')
-        }),
-
-        subline: M.View.extend({
-            tagName: 'h2',
-            value: M.I18N.get('beer.subline')
-        }),
-
-        links: M.ButtonGroupView.extend({
-
-        }, {
-
-            gettingStarted: M.ButtonView.extend({
-                value: M.I18N.get('beer.links.getStarted'),
-                events: {
-                    tap: function() {
-                        window.location.href = 'http://the-m-project.org';
-                    }
-                }
-            }),
-
-            documentation: M.ButtonView.extend({
-                value: M.I18N.get('beer.links.documentation'),
-                events: {
-                    tap: function() {
-                        window.location.href = 'http://docs.the-m-project.org';
-                    }
-                }
-            })
         }),
 
         back: M.ButtonView.extend({

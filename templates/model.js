@@ -1,4 +1,4 @@
-/*global <%= _.camelize(appname) %>, M*/
+/*global <%= _.camelize(appname) %>*/
 
 <%= _.camelize(appname) %>.Models = <%= _.camelize(appname) %>.Models || {};
 

@@ -20,6 +20,7 @@
     "smarttabs": true,
     "globals": {
         "jquery": true,
+        "M": true,
         "YES": true,
         "NO": true
     }

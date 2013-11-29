@@ -8,13 +8,6 @@
     "absinthe.text": "Wonder why it is called Absinthe? Since Google uses sweets, Apple animals and version numbers are boring we switched the release names to alcoholics ;)",
 
     "beer": {
-        "headline": "What's next?",
-        "text": "A hint, we are located in germany ...",
-        "links": {
-            "getStarted" : "Get Started",
-            "documentation" : "Documentation"
-        }
-    },
-
-    "beer.subline": "Further informations"
+        "headline": "What's next?"
+    }
 }
