@@ -29,9 +29,9 @@ var Generator = module.exports = function Generator(args, options, config) {
     }
   });
 
-  var generators = 'tmp2|app|models|collections|views|layouts|controllers|routes'.split('|');
+  var generators = 'tmp2|app|model|collection|view|layout|controller|router|i18n'.split('|');
   if (generators.indexOf(this.generatorName) === -1) {
-    console.log('Invalid command \'' + this.generatorName + '\'');
+    console.log( '\'' + this.generatorName + '\' is not a valid generator command. See \'yo tmp2 --help\'');
     process.kill();
   }
 
