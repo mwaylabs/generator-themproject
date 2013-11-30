@@ -186,15 +186,14 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/scripts/vendor/');
   this.mkdir('app/styles');
   this.mkdir('app/images');
-  this.mkdir('app/icons');
-  this.template('app/icons/favicon.png');
-  this.template('app/icons/android-l.png');
-  this.template('app/icons/android-m.png');
-  this.template('app/icons/android-s.png');
-  this.template('app/icons/apple-ipad-retina.png');
-  this.template('app/icons/apple-ipad.png');
-  this.template('app/icons/apple-iphone.png');
-  this.template('app/icons/apple-iphone-retina.png');
+  this.copy('app/icons/favicon.png');
+  this.copy('app/icons/android-l.png');
+  this.copy('app/icons/android-m.png');
+  this.copy('app/icons/android-s.png');
+  this.copy('app/icons/apple-ipad-retina.png');
+  this.copy('app/icons/apple-ipad.png');
+  this.copy('app/icons/apple-iphone.png');
+  this.copy('app/icons/apple-iphone-retina.png');
   this.write('app/index.html', this.indexFile);
 };
 
