@@ -268,6 +268,7 @@ var artwork = function artwork() {
   };
 
   function draw() {
+    var isMac = !process.platform.match(/^win/);
     var s, i;
     for (s in schema) {
       var line = '';
@@ -279,7 +280,9 @@ var artwork = function artwork() {
           line += getGrey();
         }
       }
-      updateLineColor(s);
+      if(isMac) {
+        updateLineColor(s);
+      }
       line += getGrey();
       console.log(line);
     }

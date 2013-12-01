@@ -6,3 +6,11 @@ Example:
 
     This will create:
         app/scripts/controllers/foo.js
+
+Example with URL framgent:
+
+    yo tmp2:controller foo bar
+
+    This will create a file foo.js like before but
+    it adds the passed URL framgent to the main router:
+        app/scripts/main.js
