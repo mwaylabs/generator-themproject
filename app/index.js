@@ -29,9 +29,9 @@ var Generator = module.exports = function Generator(args, options, config) {
     }
   });
 
-  var generators = 'tmp2|app|models|collections|views|layouts|controllers|routes'.split('|');
+  var generators = 'tmp2|app|model|collection|view|layout|controller|router|i18n'.split('|');
   if (generators.indexOf(this.generatorName) === -1) {
-    console.log('Invalid command \'' + this.generatorName + '\'');
+    console.log( '\'' + this.generatorName + '\' is not a valid generator command. See \'yo tmp2 --help\'');
     process.kill();
   }
 
@@ -186,15 +186,14 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.mkdir('app/scripts/vendor/');
   this.mkdir('app/styles');
   this.mkdir('app/images');
-  this.mkdir('app/icons');
-  this.template('app/icons/favicon.png');
-  this.template('app/icons/android-l.png');
-  this.template('app/icons/android-m.png');
-  this.template('app/icons/android-s.png');
-  this.template('app/icons/apple-ipad-retina.png');
-  this.template('app/icons/apple-ipad.png');
-  this.template('app/icons/apple-iphone.png');
-  this.template('app/icons/apple-iphone-retina.png');
+  this.copy('app/icons/favicon.png');
+  this.copy('app/icons/android-l.png');
+  this.copy('app/icons/android-m.png');
+  this.copy('app/icons/android-s.png');
+  this.copy('app/icons/apple-ipad-retina.png');
+  this.copy('app/icons/apple-ipad.png');
+  this.copy('app/icons/apple-iphone.png');
+  this.copy('app/icons/apple-iphone-retina.png');
   this.write('app/index.html', this.indexFile);
 };
 
@@ -269,6 +268,7 @@ var artwork = function artwork() {
   };
 
   function draw() {
+    var isMac = !process.platform.match(/^win/);
     var s, i;
     for (s in schema) {
       var line = '';
@@ -280,7 +280,9 @@ var artwork = function artwork() {
           line += getGrey();
         }
       }
-      updateLineColor(s);
+      if(isMac) {
+        updateLineColor(s);
+      }
       line += getGrey();
       console.log(line);
     }

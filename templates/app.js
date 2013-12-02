@@ -1,5 +1,7 @@
 /*global $*/
 
+// PLEASE DON'T CHANGE OR REMOVE THE COMMENTS.
+// All comments in this file are necessary for the build process.
 
 (function(global) {
     'use strict';

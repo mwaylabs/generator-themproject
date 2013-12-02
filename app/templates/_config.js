@@ -5,7 +5,7 @@
     global.<%= _.camelize(appname) %> = global.<%= _.camelize(appname) %> || {};
 
     global.<%= _.camelize(appname) %>.mconfig = {
-        name: '<%= _.slugify(appname) %>',
+        name: '<%= _.camelize(appname) %>',
         locales: [
             {locale: 'en'}
         ],

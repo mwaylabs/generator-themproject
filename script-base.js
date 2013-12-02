@@ -6,7 +6,19 @@ var yeoman = require('yeoman-generator');
 var backboneUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
-  yeoman.generators.NamedBase.apply(this, arguments);
+
+  try {
+    yeoman.generators.NamedBase.apply(this, arguments);
+  } catch (e) {
+
+    if (this.options.help) {
+      console.log(this.help());
+    } else {
+      console.log(e.message);
+      console.log('See \'yo tmp2:' + this.generatorName + ' --help\'');
+    }
+    process.kill();
+  }
 
   if (typeof this.env.options.appPath === 'undefined') {
     try {
@@ -115,3 +127,11 @@ Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates()
   return result;
 }
 
+Generator.prototype.usage = function help() {
+  var out = 'yo tmp2';
+
+  if(this.generatorName && this.generatorName != 'tmp2') {
+    out += ':' + this.generatorName + ' NAME';
+  }
+  return out;
+};

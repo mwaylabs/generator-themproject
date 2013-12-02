@@ -36,7 +36,7 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
         file: filepath,
         needle: '//m:controllers',
         splicable: [
-          '\'' + this.name + '\': global.' + _str.camelize(this.appname) + '.Controllers.' + _str.classify(this.name) + 'Controller.create(),'
+          this.name + ': global.' + _str.camelize(this.appname) + '.Controllers.' + _str.classify(this.name) + 'Controller.create(),'
         ]
       });
 

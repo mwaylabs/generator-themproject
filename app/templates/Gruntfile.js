@@ -1,3 +1,14 @@
+/**
+ * The Gruntfile for The-M-Project
+ * Version: 0.1.0
+ *
+ * If you want to modify several settings
+ * take a look at the grunt.config.js file.
+ *
+ * For further information how you can customize grunt go to:
+ * http://gruntjs.com/getting-started
+ */
+
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
@@ -421,7 +432,7 @@ module.exports = function (grunt) {
         var banner = '<!--\n'+
         'Version: <%%= pkg.version %>\n'+
         'Date: <%%= grunt.template.today() %>\n'+
-        'Build with The M Project <%%= bwr.dependencies.themproject %>\n'+
+        'Build with The-M-Project <%%= bwr.dependencies.themproject %>\n'+
         '-->\n';
         content = grunt.template.process(banner) + content;
 
