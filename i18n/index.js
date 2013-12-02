@@ -2,6 +2,7 @@
 var path = require('path');
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var backboneUtils = require('../util.js');
 
 module.exports = Generator;
 
@@ -17,5 +18,14 @@ util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.createI18NFiles = function createI18NFiles() {
   var destFile = path.join('app/i18n', this.locale + '.json');
+  var cfgFile = 'app/scripts/config.js';
   this.template('i18n.json', destFile);
+
+  backboneUtils.rewriteFile({
+    file: cfgFile,
+    needle: '//m:i18n',
+    splicable: [
+      '{locale: \'' + this.locale + '\'},'
+    ]
+  });
 };

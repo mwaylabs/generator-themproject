@@ -96,7 +96,7 @@ describe('The-M-Project generator test', function () {
       '.editorconfig',
       'Gruntfile.js',
       'package.json',
-      'app/scripts/config.js',
+      ['app/scripts/config.js', /\/\/m:i18n/],
       'app/scripts/main.js',
       'app/styles/main.scss',
       ['app/index.html', /<!-- m:models -->/],

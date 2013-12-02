@@ -60,7 +60,7 @@ describe('The-M-Project scaffolding test', function () {
       '.editorconfig',
       'Gruntfile.js',
       'package.json',
-      'app/scripts/config.js',
+      ['app/scripts/config.js', /\/\/m:i18n/],
       'app/scripts/main.js',
       'app/styles/main.scss',
       'app/i18n/en.json',
