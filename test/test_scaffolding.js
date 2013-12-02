@@ -46,6 +46,12 @@ describe('The-M-Project scaffolding test', function () {
       'app/icons/apple-ipad.png',
       'app/icons/apple-iphone.png',
       'app/icons/apple-iphone-retina.png',
+      'app/splash/apple-splash-iphone.png',
+      'app/splash/apple-splash-iphone-retina.png',
+      'app/splash/apple-splash-ipad-portrait.png',
+      'app/splash/apple-splash-ipad-landscape.png',
+      'app/splash/apple-splash-ipad-portrait-retina.png',
+      'app/splash/apple-splash-ipad-landscape-retina.png',
       ['app/index.html', /scripts\/views\/absinthe.js/],
       '.gitignore',
       '.gitattributes',
@@ -62,6 +68,12 @@ describe('The-M-Project scaffolding test', function () {
       'app/scripts/controllers/beer.js',
       'app/scripts/views/absinthe.js',
       'app/scripts/views/beer.js',
+      ['app/index.html', /<!-- m:models -->/],
+      ['app/index.html', /<!-- m:collections -->/],
+      ['app/index.html', /<!-- m:views -->/],
+      ['app/index.html', /<!-- m:layouts -->/],
+      ['app/index.html', /<!-- m:controllers -->/],
+      ['app/index.html', /<!-- m:routes -->/]
     ];
 
     this.themproject.app.run({}, function () {
