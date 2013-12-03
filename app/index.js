@@ -63,7 +63,7 @@ Generator.prototype.askFor = function askFor() {
     {
       type: 'confirm',
       name: 'compass',
-      message: 'Would you like to use compass?',
+      message: 'Would you like to use Sass?',
       default: false
     }
   ];
