@@ -2,12 +2,9 @@
 
 A [Yeoman](http://yeoman.io) generator for [The-M-Project](http://the-m-project.org).
 
-## Notice
-This module is under development and not yet ready for production use.
-
 ## Getting Started
 
-Make sure you have installed Node.js, Git and optionally, Ruby and Compass (if you plan to use Compass).
+Make sure you have installed Node.js, Git and optionally, Ruby and Compass (if you plan to use Sass).
 
 Install: `npm install -g generator-m`
 
