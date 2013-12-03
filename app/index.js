@@ -57,7 +57,7 @@ Generator.prototype.askFor = function askFor() {
     {
       type: 'rawlist',
       name: 'scaffoldingTemplate',
-      message: 'Would you like to create an example?',
+      message: 'Would you like to create an example? Please choose a template.',
       choices: templateCollection
     },
     {

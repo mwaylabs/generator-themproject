@@ -105,7 +105,7 @@ Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates()
 
   var index = 0;
   var result = [
-    {name: 'Empty', value:index++}
+    {name: 'Blank', value:index++}
   ];
 
   var basePath = __dirname + '/templates';
