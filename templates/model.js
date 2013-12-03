@@ -6,7 +6,7 @@
     'use strict';
 
     <%= _.camelize(appname) %>.Models.<%= _.classify(name) %>Model = M.Model.extend({
-
+        //The Model options
     });
 
 })();
