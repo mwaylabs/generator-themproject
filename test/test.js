@@ -16,14 +16,14 @@ var assert  = require('assert');
 // Something like:
 //
 //    generators()
-//      .register(require('../app'), 'tmp2:app')
-//      .register(require('../view'), 'tmp2:view')
-//      .register(require('../router'), 'tmp2:router')
-//      .register(require('../model'), 'tmp2:model')
-//      .register(require('../collection'), 'tmp2:collection')
-//      .register(require('../controller'), 'tmp2:controller')
-//      .register(require('../layout'), 'tmp2:layout')
-//      .register(require('../i18n'), 'tmp2:i18n')
+//      .register(require('../app'), 'm:app')
+//      .register(require('../view'), 'm:view')
+//      .register(require('../router'), 'm:router')
+//      .register(require('../model'), 'm:model')
+//      .register(require('../collection'), 'm:collection')
+//      .register(require('../controller'), 'm:controller')
+//      .register(require('../layout'), 'm:layout')
+//      .register(require('../i18n'), 'm:i18n')
 //
 // Or for the lazy guy:
 //
@@ -38,7 +38,7 @@ describe('The-M-Project generator test', function () {
         return done(err);
       }
       this.themproject = {};
-      this.themproject.app = helpers.createGenerator('tmp2:app', [
+      this.themproject.app = helpers.createGenerator('m:app', [
         '../../app', [
           helpers.createDummyGenerator(),
           'mocha:app'
@@ -116,7 +116,7 @@ describe('The-M-Project generator test', function () {
 
   describe('The-M-Project Model', function () {
     it('creates themproject model', function (done) {
-      var model = helpers.createGenerator('tmp2:model', ['../../model'], ['foo']);
+      var model = helpers.createGenerator('m:model', ['../../model'], ['foo']);
 
       this.themproject.app.run({}, function () {
         model.run([], function () {
@@ -132,7 +132,7 @@ describe('The-M-Project generator test', function () {
 
   describe('The-M-Project Collection', function () {
     it('creates themproject collection', function (done) {
-      var collection = helpers.createGenerator('tmp2:collection', ['../../collection'], ['foo']);
+      var collection = helpers.createGenerator('m:collection', ['../../collection'], ['foo']);
 
       this.themproject.app.run({}, function () {
         collection.run([], function () {
@@ -147,7 +147,7 @@ describe('The-M-Project generator test', function () {
 
   describe('The-M-Project Router', function () {
     it('creates themproject router', function (done) {
-      var router = helpers.createGenerator('tmp2:router', ['../../router'], ['foo']);
+      var router = helpers.createGenerator('m:router', ['../../router'], ['foo']);
 
       this.themproject.app.run({}, function () {
         router.run([], function () {
@@ -162,7 +162,7 @@ describe('The-M-Project generator test', function () {
 
   describe('The-M-Project View', function () {
     it('creates themproject view', function (done) {
-      var view = helpers.createGenerator('tmp2:view', ['../../view'], ['foo']);
+      var view = helpers.createGenerator('m:view', ['../../view'], ['foo']);
 
       this.themproject.app.run({}, function () {
         view.run([], function () {
@@ -177,7 +177,7 @@ describe('The-M-Project generator test', function () {
 
   describe('The-M-Project Controller', function () {
     it('creates themproject controller', function (done) {
-      var controller = helpers.createGenerator('tmp2:controller', ['../../controller'], ['foo']);
+      var controller = helpers.createGenerator('m:controller', ['../../controller'], ['foo']);
 
       this.themproject.app.run({}, function () {
         controller.run([], function () {
@@ -192,7 +192,7 @@ describe('The-M-Project generator test', function () {
 
   describe('The-M-Project I18N', function () {
     it('creates themproject i18n', function (done) {
-      var i18n = helpers.createGenerator('tmp2:i18n', ['../../i18n'], ['foo']);
+      var i18n = helpers.createGenerator('m:i18n', ['../../i18n'], ['foo']);
 
       this.themproject.app.run({}, function () {
         i18n.run([], function () {
@@ -207,7 +207,7 @@ describe('The-M-Project generator test', function () {
 
   describe('The-M-Project Layout', function () {
     it('creates themproject layout', function (done) {
-      var layout = helpers.createGenerator('tmp2:layout', ['../../layout'], ['foo']);
+      var layout = helpers.createGenerator('m:layout', ['../../layout'], ['foo']);
 
       this.themproject.app.run({}, function () {
         layout.run([], function () {

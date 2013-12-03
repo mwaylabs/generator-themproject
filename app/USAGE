@@ -3,13 +3,13 @@ Description:
     Before you create a new application, be sure you are in the directory you wish your application to be dropped into.
 
 Example:
-    yo tmp2
+    yo m
 
 Further commands:
-    yo tmp2:model
-    yo tmp2:collection
-    yo tmp2:view
-    yo tmp2:layout
-    yo tmp2:controller
-    yo tmp2:i18n
-    yo tmp2:router
+    yo m:model
+    yo m:collection
+    yo m:view
+    yo m:layout
+    yo m:controller
+    yo m:i18n
+    yo m:router

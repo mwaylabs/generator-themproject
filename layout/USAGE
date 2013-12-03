@@ -2,7 +2,7 @@ Description:
     Creates a new layout which inherits from M.Layout
 
 Example:
-    yo tmp2:layout foo
+    yo m:layout foo
 
     This will create:
         app/scripts/layouts/foo.js

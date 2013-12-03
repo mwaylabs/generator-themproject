@@ -1,16 +1,17 @@
 {
-  "name": "generator-tmp2",
-  "version": "0.0.19",
+  "name": "generator-m",
+  "version": "0.0.20",
   "description": "Yeoman generator for The-M-Project",
   "keywords": [
     "yeoman-generator",
+    "the-m-project",
+    "mobile",
     "scaffold",
     "framework",
-    "mvc",
-    "the-m-project"
+    "mvc"
   ],
-  "homepage": "https://github.com/mwaylabs/generator-tmp2",
-  "bugs": "https://github.com/mwaylabs/generator-tmp2/issues",
+  "homepage": "https://github.com/mwaylabs/generator-m",
+  "bugs": "https://github.com/mwaylabs/generator-m/issues",
   "author": {
     "name": "M-Way Labs",
     "url": "https://github.com/mwaylabs"
@@ -18,7 +19,7 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mwaylabs/generator-tmp2.git"
+    "url": "git://github.com/mwaylabs/generator-m.git"
   },
   "scripts": {
     "test": "istanbul cover _mocha --report lcovonly -- test/*.js --reporter list --timeout 100000 && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"

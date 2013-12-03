@@ -2,7 +2,7 @@ Description:
     Creates a new model which inherits from M.Model
 
 Example:
-    yo tmp2:model foo
+    yo m:model foo
 
     This will create:
         app/scripts/models/foo.js

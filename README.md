@@ -1,4 +1,4 @@
-# The-M-Project generator [![Build Status](https://travis-ci.org/mwaylabs/generator-tmp2.png)](https://travis-ci.org/mwaylabs/generator-tmp2) [![Coverage Status](https://coveralls.io/repos/mwaylabs/generator-tmp2/badge.png?branch=master)](https://coveralls.io/r/mwaylabs/generator-tmp2?branch=master)
+# The-M-Project generator [![Build Status](https://travis-ci.org/mwaylabs/generator-m.png)](https://travis-ci.org/mwaylabs/generator-m) [![Coverage Status](https://coveralls.io/repos/mwaylabs/generator-m/badge.png?branch=master)](https://coveralls.io/r/mwaylabs/generator-m?branch=master)
 
 A [Yeoman](http://yeoman.io) generator for [The-M-Project](http://the-m-project.org).
 
@@ -9,16 +9,16 @@ This module is under development and not yet ready for production use.
 
 Make sure you have installed Node.js, Git and optionally, Ruby and Compass (if you plan to use Compass).
 
-Install: `npm install -g generator-tmp2`
+Install: `npm install -g generator-m`
 
-Make a new directory and `cd` into it:
+Create a folder and name it after the application name and `cd` into it:
 ```bash
 mkdir my-new-project && cd $_
 ```
 
 Run the yo generator:
 ```bash
-yo tmp2
+yo m
 ```
 
 Run `grunt` for building and `grunt server` for preview
@@ -27,20 +27,20 @@ Run `grunt` for building and `grunt server` for preview
 
 Available generators:
 
-* [tmp2](#app)
-* [tmp2:view](#view)
-* [tmp2:layout](#layout)
-* [tmp2:controller](#controller)
-* [tmp2:model](#model)
-* [tmp2:collection](#collection)
-* [tmp2:router](#router)
-* [tmp2:i18n](#i18n)
+* [m](#app)
+* [m:view](#view)
+* [m:layout](#layout)
+* [m:controller](#controller)
+* [m:model](#model)
+* [m:collection](#collection)
+* [m:router](#router)
+* [m:i18n](#i18n)
 
 ### App
 Create a new The-M-Project app and generate all the boilerplate for you.
 
 ```bash
-yo tmp2
+yo m
 ```
 
 ### View
@@ -49,7 +49,7 @@ Generates a view in `app/scripts/views`.
 
 Example:
 ```bash
-yo tmp2:view foo
+yo m:view foo
 ```
 
 Produces `app/scripts/views/foo.js`:
@@ -65,7 +65,7 @@ Generates a layout in `app/scripts/layouts`.
 
 Example:
 ```bash
-yo tmp2:layout foo
+yo m:layout foo
 ```
 
 Produces `app/scripts/layouts/foo.js`:
@@ -82,7 +82,7 @@ Generates a controller in `app/scripts/controllers`.
 
 Example:
 ```bash
-yo tmp2:controller foo
+yo m:controller foo
 ```
 
 Produces `app/scripts/controllers/foo.js`:
@@ -99,7 +99,7 @@ Generates a model in `app/scripts/models`.
 
 Example:
 ```
-yo tmp2:model foo
+yo m:model foo
 ```
 
 Produces `app/scripts/models/foo.js`:
@@ -116,7 +116,7 @@ Generates a collection in `app/scripts/collections`.
 
 Example:
 ```bash
-yo tmp2:collection foo
+yo m:collection foo
 ```
 
 Produces `app/scripts/collections/foo.js`:
@@ -133,7 +133,7 @@ Generates a router in `app/scripts/routers`.
 
 Example:
 ```bash
-yo tmp2:routers foo
+yo m:routers foo
 ```
 
 Produces `app/scripts/routers/foo.js`:
@@ -150,7 +150,7 @@ Generates a i18n in `app/i18n`.
 
 Example:
 ```bash
-yo tmp2:i18n en
+yo m:i18n en
 ```
 
 Produces `app/i18n/en.json`:

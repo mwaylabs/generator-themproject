@@ -2,14 +2,14 @@ Description:
     Creates a new controller which inherits from M.Controller
 
 Example:
-    yo tmp2:controller foo
+    yo m:controller foo
 
     This will create:
         app/scripts/controllers/foo.js
 
 Example with URL framgent:
 
-    yo tmp2:controller foo bar
+    yo m:controller foo bar
 
     This will create a file foo.js like before but
     it adds the passed URL framgent to the main router:

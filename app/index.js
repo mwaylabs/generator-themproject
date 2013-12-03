@@ -29,16 +29,16 @@ var Generator = module.exports = function Generator(args, options, config) {
     }
   });
 
-  var generators = 'tmp2|app|model|collection|view|layout|controller|router|i18n'.split('|');
+  var generators = 'm|app|model|collection|view|layout|controller|router|i18n'.split('|');
   if (generators.indexOf(this.generatorName) === -1) {
-    console.log( '\'' + this.generatorName + '\' is not a valid generator command. See \'yo tmp2 --help\'');
+    console.log( '\'' + this.generatorName + '\' is not a valid generator command. See \'yo m --help\'');
     process.kill();
   }
 
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
 
   this.on('end', function () {
-    if (['app', 'tmp2'].indexOf(this.generatorName) >= 0) {
+    if (['app', 'm'].indexOf(this.generatorName) >= 0) {
       this.installDependencies({ skipInstall: this.options['skip-install'] });
     }
   });

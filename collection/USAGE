@@ -2,7 +2,7 @@ Description:
     Creates a new collection which inherits from M.Collection
 
 Example:
-    yo tmp2:collection foo
+    yo m:collection foo
 
     This will create:
         app/scripts/collection/foo.js

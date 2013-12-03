@@ -15,7 +15,7 @@ var Generator = module.exports = function Generator() {
       console.log(this.help());
     } else {
       console.log(e.message);
-      console.log('See \'yo tmp2:' + this.generatorName + ' --help\'');
+      console.log('See \'yo m:' + this.generatorName + ' --help\'');
     }
     process.kill();
   }
@@ -128,9 +128,9 @@ Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates()
 }
 
 Generator.prototype.usage = function help() {
-  var out = 'yo tmp2';
+  var out = 'yo m';
 
-  if(this.generatorName && this.generatorName != 'tmp2') {
+  if(this.generatorName && this.generatorName != 'm') {
     out += ':' + this.generatorName + ' NAME';
   }
   return out;

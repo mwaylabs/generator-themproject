@@ -2,7 +2,7 @@ Description:
     Creates a new i18n file
 
 Example:
-    yo tmp2:i18n en
+    yo m:i18n en
 
     This will create:
         app/i18n/en.json

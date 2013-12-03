@@ -12,7 +12,7 @@ describe('The-M-Project scaffolding test', function () {
         return done(err);
       }
       this.themproject = {};
-      this.themproject.app = helpers.createGenerator('tmp2:app', [
+      this.themproject.app = helpers.createGenerator('m:app', [
         '../../app', [
           helpers.createDummyGenerator(),
           'mocha:app'

@@ -2,7 +2,7 @@ Description:
     Creates a new view which inherits from M.View
 
 Example:
-    yo tmp2:view foo
+    yo m:view foo
 
     This will create:
         app/scripts/views/foo.js
