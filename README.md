@@ -1,4 +1,4 @@
-# The-M-Project generator [![Build Status](https://travis-ci.org/mwaylabs/generator-m.png)](https://travis-ci.org/mwaylabs/generator-m) [![Coverage Status](https://coveralls.io/repos/mwaylabs/generator-m/badge.png?branch=master)](https://coveralls.io/r/mwaylabs/generator-m?branch=master)
+# The-M-Project 2-0 generator [![Build Status](https://travis-ci.org/mwaylabs/generator-m.png)](https://travis-ci.org/mwaylabs/generator-m) [![Coverage Status](https://coveralls.io/repos/mwaylabs/generator-m/badge.png?branch=master)](https://coveralls.io/r/mwaylabs/generator-m?branch=master)
 
 A [Yeoman](http://yeoman.io) generator for [The-M-Project](http://the-m-project.org).
 
