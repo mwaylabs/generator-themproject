@@ -9,12 +9,12 @@ Make sure you have installed Node.js, Git and optionally, Ruby and Compass (if y
 Install: `npm install -g generator-m`
 
 Create a folder and name it after the application name and `cd` into it:
-```bash
+```
 mkdir my-new-project && cd $_
 ```
 
 Run the yo generator:
-```bash
+```
 yo m
 ```
 
@@ -36,7 +36,7 @@ Available generators:
 ### App
 Create a new The-M-Project app and generate all the boilerplate for you.
 
-```bash
+```
 yo m
 ```
 
@@ -45,7 +45,7 @@ yo m
 Generates a view in `app/scripts/views`.
 
 Example:
-```bash
+```
 yo m:view foo
 ```
 
@@ -61,7 +61,7 @@ APPNAME.Views.FooView = M.View.extend({
 Generates a layout in `app/scripts/layouts`.
 
 Example:
-```bash
+```
 yo m:layout foo
 ```
 
@@ -78,7 +78,7 @@ APPNAME.Layouts.FooLayout = M.Layout.extend({
 Generates a controller in `app/scripts/controllers`.
 
 Example:
-```bash
+```
 yo m:controller foo
 ```
 
@@ -112,7 +112,7 @@ APPNAME.Models.FooModel = M.Model.extend({
 Generates a collection in `app/scripts/collections`.
 
 Example:
-```bash
+```
 yo m:collection foo
 ```
 
@@ -129,7 +129,7 @@ APPNAME.Collections.FooCollection = M.Collection.extend({
 Generates a router in `app/scripts/routers`.
 
 Example:
-```bash
+```
 yo m:routers foo
 ```
 
@@ -146,13 +146,13 @@ APPNAME.Routers.FooRouter = M.Router.extend({
 Generates a i18n in `app/i18n`.
 
 Example:
-```bash
+```
 yo m:i18n en
 ```
 
 Produces `app/i18n/en.json`:
 
-```json
+```javascript
 {
     "global.button.save": "Save document",
     "global.button.emptyTrash": "Empty Trash ({{count}})",
