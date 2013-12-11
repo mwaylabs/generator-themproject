@@ -203,7 +203,7 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.write('app/index.html', this.indexFile);
 
   this.sourceRoot(path.join(__dirname, '../templates'));
-  this.template('i18n.json', 'app/i18n/en.json');
+  this.template('i18n.js', 'app/i18n/en.js');
 
 };
 

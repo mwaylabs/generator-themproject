@@ -76,7 +76,7 @@ module.exports = function (grunt) {
                     '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                     '<%%= yeoman.app %>/scripts/templates/*.ejs',
-                    '<%%= yeoman.app %>/i18n/*.json',
+                    '<%%= yeoman.app %>/i18n/*.js',
                     'test/spec/**/*.js'
                 ]
             },
@@ -326,7 +326,7 @@ module.exports = function (grunt) {
                         'splash/*.png',
                         'images/{,*/}*.{webp,gif}',
                         'fonts/{,*/}*.*',
-                        'i18n/*.json'
+                        'i18n/*.js'
                     ]
                 }]
             }
@@ -370,7 +370,7 @@ module.exports = function (grunt) {
                     'images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                     'scripts/{,*/}*.js',
                     'styles/{,*/}*.css',
-                    'i18n/*.json'
+                    'i18n/*.js'
                 ],
                 dest: '<%%= yeoman.dist %>/manifest.appcache'
             }

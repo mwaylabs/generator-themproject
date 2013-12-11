@@ -17,9 +17,9 @@ function Generator() {
 util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.createI18NFiles = function createI18NFiles() {
-  var destFile = path.join('app/i18n', this.locale + '.json');
+  var destFile = path.join('app/i18n', this.locale + '.js');
   var cfgFile = 'app/scripts/config.js';
-  this.template('i18n.json', destFile);
+  this.template('i18n.js', destFile);
 
   backboneUtils.rewriteFile({
     file: cfgFile,
