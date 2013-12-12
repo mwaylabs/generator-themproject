@@ -63,7 +63,7 @@ describe('The-M-Project scaffolding test', function () {
       ['app/scripts/config.js', /\/\/m:i18n/],
       'app/scripts/main.js',
       'app/styles/main.scss',
-      'app/i18n/en.json',
+      'app/i18n/en.js',
       'app/scripts/controllers/absinthe.js',
       'app/scripts/controllers/beer.js',
       'app/scripts/views/absinthe.js',
