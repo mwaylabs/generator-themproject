@@ -16,9 +16,9 @@
     'use strict';
 
     <%= _.camelize(appname) %>.Collections.<%= _.classify(name) %>Collection = M.Collection.extend({
-
-        model: <%= _.camelize(appname) %>.Models.<%= _.classify(name) %>Model
-
+      <% if(modelName) { %>
+        model: <%= _.camelize(appname) %>.Models.<%= _.classify(modelName) %>Model
+      <% } %>
     });
 
 })();
