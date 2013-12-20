@@ -6,7 +6,18 @@ var yeoman = require('yeoman-generator');
 var backboneUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
-  yeoman.generators.NamedBase.apply(this, arguments);
+  try {
+    yeoman.generators.NamedBase.apply(this, arguments);
+  } catch (e) {
+
+    if (this.options.help) {
+      console.log(this.help());
+    } else {
+      console.log(e.message);
+      console.log('See \'yo m:' + this.generatorName + ' --help\'');
+    }
+    process.kill();
+  }
 
   this.env.options.appPath = this.config.get('appPath') || 'app';
 
@@ -25,15 +36,6 @@ var Generator = module.exports = function Generator() {
     }
 
     this.env.options.coffee = this.options.coffee;
-  }
-
-  // check if --requirejs option provided or if require is setup
-  if (typeof this.env.options.requirejs === 'undefined') {
-    this.option('requirejs');
-
-    this.options.requirejs = this.checkIfUsingRequireJS();
-
-    this.env.options.requirejs = this.options.requirejs;
   }
 
   this.setupSourceRootAndSuffix();
@@ -109,3 +111,10 @@ Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates()
 
   return result;
 }
+
+Generator.prototype.setupSourceRootAndSuffix = function setupSourceRootAndSuffix() {
+  var sourceRoot = '/templates';
+  this.scriptSuffix = '.js';
+
+  this.sourceRoot(path.join(__dirname, sourceRoot));
+};
