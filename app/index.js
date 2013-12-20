@@ -5,29 +5,25 @@ var yeoman = require('yeoman-generator');
 var scriptBase = require('../script-base');
 var backboneUtils = require('../util.js');
 
-var SCAFFOLDING_TYPE_NONE = 'none';
-var SCAFFOLDING_TYPE_SWITCH_LAYOUT = 'switchlayout';
-
 var Generator = module.exports = function Generator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
-  if (typeof this.env.options.appPath === 'undefined') {
-    try {
-      this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
-    } catch (e) {
-    }
-    this.env.options.appPath = this.env.options.appPath || 'app';
-  }
+  this.env.options.appPath = this.options.appPath || 'app';
+  this.config.set('appPath', this.env.options.appPath);
 
   this.testFramework = this.options['test-framework'] || 'mocha';
-  this.hookFor(this.testFramework, {
-    as: 'app',
-    options: {
+  this.templateFramework = this.options['template-framework'] || 'lodash';
+
+  if (['app', 'm'].indexOf(this.generatorName) >= 0) {
+    this.hookFor(this.testFramework, {
+      as: 'app',
       options: {
-        'skip-install': this.options['skip-install']
+        options: {
+          'skip-install': this.options['skip-install']
+        }
       }
-    }
-  });
+    });
+  }
 
   var generators = 'm|app|model|collection|view|layout|controller|router|i18n'.split('|');
   if (generators.indexOf(this.generatorName) === -1) {
@@ -39,6 +35,9 @@ var Generator = module.exports = function Generator(args, options, config) {
 
   this.on('end', function () {
     if (['app', 'm'].indexOf(this.generatorName) >= 0) {
+      if (/^.*test$/.test(process.cwd())) {
+        process.chdir('..');
+      }
       this.installDependencies({ skipInstall: this.options['skip-install'] });
     }
   });
