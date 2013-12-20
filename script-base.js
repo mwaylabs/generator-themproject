@@ -6,27 +6,9 @@ var yeoman = require('yeoman-generator');
 var backboneUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
+  yeoman.generators.NamedBase.apply(this, arguments);
 
-  try {
-    yeoman.generators.NamedBase.apply(this, arguments);
-  } catch (e) {
-
-    if (this.options.help) {
-      console.log(this.help());
-    } else {
-      console.log(e.message);
-      console.log('See \'yo m:' + this.generatorName + ' --help\'');
-    }
-    process.kill();
-  }
-
-  if (typeof this.env.options.appPath === 'undefined') {
-    try {
-      this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
-    } catch (err) {
-    }
-    this.env.options.appPath = this.env.options.appPath || 'app';
-  }
+  this.env.options.appPath = this.config.get('appPath') || 'app';
 
   if (this.env.options.minsafe) {
     sourceRoot += '-min';
@@ -45,15 +27,16 @@ var Generator = module.exports = function Generator() {
     this.env.options.coffee = this.options.coffee;
   }
 
-  var sourceRoot = '/templates/';
-  this.scriptSuffix = '.js';
+  // check if --requirejs option provided or if require is setup
+  if (typeof this.env.options.requirejs === 'undefined') {
+    this.option('requirejs');
 
-  if (this.env.options.coffee) {
-    sourceRoot = '/templates/coffeescript';
-    this.scriptSuffix = '.coffee';
+    this.options.requirejs = this.checkIfUsingRequireJS();
+
+    this.env.options.requirejs = this.options.requirejs;
   }
 
-  this.sourceRoot(path.join(__dirname, sourceRoot));
+  this.setupSourceRootAndSuffix();
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
@@ -126,12 +109,3 @@ Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates()
 
   return result;
 }
-
-Generator.prototype.usage = function help() {
-  var out = 'yo m';
-
-  if(this.generatorName && this.generatorName != 'm') {
-    out += ':' + this.generatorName + ' NAME';
-  }
-  return out;
-};
