@@ -1,5 +1,8 @@
 # Changelog
 
+##v0.1.8 - 2014-01-07
+- Collection generator should also create a model ([#10](https://github.com/mwaylabs/generator-m/issues/10))
+
 ##v0.1.7 - 2013-12-20
 - Fix generator init produce an error
 

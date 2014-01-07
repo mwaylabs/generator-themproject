@@ -25,39 +25,27 @@ function Generator() {
     };
   });
 
+  var testOptions = {
+    as: 'model',
+    args: [this.name],
+    options: {
+      coffee: this.config.get('coffee'),
+      ui: this.config.get('ui')
+    }
+  };
+
+  if (this.geneateTests()) {
+    this.hookFor('backbone-mocha', testOptions);
+  }
+
 }
 
 util.inherits(Generator, scriptBase);
 
 Generator.prototype.createModelFiles = function createModelFiles() {
-  var ext = this.options.coffee ? '.coffee' : '.js';
-  var destFile = path.join('app/scripts/models', this.name + ext);
-  this.isRequireJsApp = this.isUsingRequireJS();
+  this.writeTemplate('model', path.join(this.env.options.appPath + '/scripts/models', this.name));
 
-  if (!this.isRequireJsApp) {
-    this.template('model' + ext, destFile);
-    this.addScriptToIndexGroup('models/' + this.name, 'models');
-    return;
+  if (!this.options.requirejs) {
+    this.addScriptToIndex('models/' + this.name);
   }
-
-//  TODO Implement requireJS support
-//  var template = [
-//    '/*global define*/',
-//    '',
-//    'define([',
-//    '    \'underscore\',',
-//    '    \'backbone\'',
-//    '], function (_, Backbone) {',
-//    '    \'use strict\';',
-//    '',
-//    '    var ' + this._.classify(this.name) + 'Model = Backbone.Model.extend({',
-//    '        defaults: {',
-//    '        }',
-//    '    });',
-//    '',
-//    '    return ' + this._.classify(this.name) + 'Model;',
-//    '});'
-//  ].join('\n');
-//
-//  this.write(destFile, template);
 };

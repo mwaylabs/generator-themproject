@@ -1,31 +1,20 @@
 /*jshint latedef:false */
-var path = require('path');
-var util = require('util');
-var yeoman = require('yeoman-generator');
-var backboneUtils = require('../util.js');
+var path = require('path'),
+  util = require('util'),
+  yeoman = require('yeoman-generator'),
+  scriptBase = require('../script-base');
 
 module.exports = Generator;
 
 function Generator() {
-  yeoman.generators.Base.apply(this, arguments);
-  this.argument('locale', { type: String, required: true });
-
-  var dirPath = '../templates';
+  scriptBase.apply(this, arguments);
+  var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 }
 
-util.inherits(Generator, yeoman.generators.Base);
+util.inherits(Generator, scriptBase);
 
-Generator.prototype.createI18NFiles = function createI18NFiles() {
-  var destFile = path.join('app/i18n', this.locale + '.json');
-  var cfgFile = 'app/scripts/config.js';
-  this.template('i18n.json', destFile);
-
-  backboneUtils.rewriteFile({
-    file: cfgFile,
-    needle: '//m:i18n',
-    splicable: [
-      '{locale: \'' + this.locale + '\'},'
-    ]
-  });
+Generator.prototype.createControllerFiles = function createControllerFiles() {
+  //this.writeTemplate('i18n', path.join(this.env.options.appPath + '/i18n', this.name));
+  this.template('i18n.json',  this.env.options.appPath + '/i18n/' + this.name + '.json');
 };

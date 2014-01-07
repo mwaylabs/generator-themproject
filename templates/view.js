@@ -1,8 +1,8 @@
-/*global <%= _.camelize(appname) %>*/
+/*global <%= _.camelize(appname) %>, Backbone, JST*/
 
 <%= _.camelize(appname) %>.Views = <%= _.camelize(appname) %>.Views || {};
 
-(function() {
+(function () {
     'use strict';
 
     <%= _.camelize(appname) %>.Views.<%= _.classify(name) %>View = M.View.extend({

@@ -1,8 +1,8 @@
 /*jshint latedef:false */
-var path = require('path'),
-  util = require('util'),
-  yeoman = require('yeoman-generator'),
-  scriptBase = require('../script-base');
+var path = require('path');
+var util = require('util');
+var yeoman = require('yeoman-generator');
+var scriptBase = require('../script-base');
 
 module.exports = Generator;
 
@@ -11,41 +11,41 @@ function Generator() {
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
+  var testOptions = {
+    as: 'view',
+    args: [this.name],
+    options: {
+      coffee: this.config.get('coffee'),
+      ui: this.config.get('ui')
+    }
+  };
+
+  if (this.geneateTests()) {
+    this.hookFor('backbone-mocha', testOptions);
+  }
+
 }
 
 util.inherits(Generator, scriptBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
-  var ext = this.options.coffee ? '.coffee' : '.js';
-
-  var destFile = path.join('app/scripts/views', this.name + ext);
-  var isRequireJsApp = this.isUsingRequireJS();
-
-  if (!isRequireJsApp) {
-    this.template('view' + ext, destFile);
-    this.addScriptToIndexGroup('views/' + this.name, 'views');
-    return;
+  /*var templateFramework = this.getTemplateFramework();
+  var templateExt = '.ejs';
+  if (templateFramework === 'mustache') {
+    templateExt = '-template.mustache';
+  } else if (templateFramework === 'handlebars') {
+    templateExt = '.hbs';
   }
+  this.jst_path = this.env.options.appPath + '/scripts/templates/' + this.name + templateExt;
 
-//  TODO Implement requireJS support
-//  var template = [
-//    '/*global define*/',
-//    '',
-//    'define([',
-//    '    \'jquery\',',
-//    '    \'underscore\',',
-//    '    \'backbone\',',
-//    '    \'templates\'',
-//    '], function ($, _, Backbone, JST) {',
-//    '    \'use strict\';',
-//    '',
-//    '    var ' + this._.classify(this.name) + 'View = Backbone.View.extend({',
-//    '        ' + 'template: JST[\'' + this.jst_path + '\']',
-//    '    });',
-//    '',
-//    '    return ' + this._.classify(this.name) + 'View;',
-//    '});'
-//  ].join('\n');
-//
-//  this.write(destFile, template);
+  this.template('view.ejs', this.jst_path);
+  if (templateFramework === 'mustache') {
+    this.jst_path = this.name + '-template';
+  }*/
+
+  this.writeTemplate('view', path.join(this.env.options.appPath + '/scripts/views', this.name));
+
+  if (!this.options.requirejs) {
+    this.addScriptToIndex('views/' + this.name);
+  }
 };

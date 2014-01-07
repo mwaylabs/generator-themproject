@@ -1,4 +1,4 @@
-/*global <%= _.camelize(appname) %>*/
+/*global <%= _.camelize(appname) %>, Backbone*/
 
 <%= _.camelize(appname) %>.Collections = <%= _.camelize(appname) %>.Collections || {};
 
@@ -12,13 +12,13 @@
  * http://backbonejs.org/#Collection
  */
 
-(function() {
+(function () {
     'use strict';
 
     <%= _.camelize(appname) %>.Collections.<%= _.classify(name) %>Collection = M.Collection.extend({
-
-        model: <%= _.camelize(appname) %>.Models.<%= _.classify(name) %>Model
-
+        <% if(modelName) { %>
+        model: <%= _.camelize(appname) %>.Models.<%= _.classify(modelName) %>Model
+        <% } %>
     });
 
 })();

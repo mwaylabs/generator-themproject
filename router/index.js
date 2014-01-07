@@ -11,41 +11,26 @@ function Generator() {
   var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
   this.sourceRoot(path.join(__dirname, dirPath));
 
-  // required for router.js template which uses `appname`
+  var testOptions = {
+    as: 'router',
+    args: [this.name],
+    options: {
+      coffee: this.config.get('coffee'),
+      ui: this.config.get('ui')
+    }
+  };
+
+  if (this.geneateTests()){
+    this.hookFor('backbone-mocha', testOptions);
+  }
 }
 
 util.inherits(Generator, scriptBase);
 
 Generator.prototype.createControllerFiles = function createControllerFiles() {
-  var ext = this.options.coffee ? '.coffee' : '.js';
-  var destFile = path.join('app/scripts/routes', this.name + ext);
-  this.isRequireJsApp = this.isUsingRequireJS();
+  this.writeTemplate('router', path.join(this.env.options.appPath + '/scripts/routes', this.name));
 
-  if (!this.isRequireJsApp) {
-    this.template('router' + ext, destFile);
-    this.addScriptToIndexGroup('routes/' + this.name, 'routes');
-    return;
+  if (!this.options.requirejs) {
+    this.addScriptToIndex('routes/' + this.name);
   }
-
-//  TODO Implement requireJS support
-//  var template = [
-//    '/*global define*/',
-//    '',
-//    'define([',
-//    '    \'jquery\',',
-//    '    \'backbone\'',
-//    '], function ($, Backbone) {',
-//    '    \'use strict\';',
-//    '',
-//    '    var ' + this._.classify(this.name) + 'Router = Backbone.Router.extend({',
-//    '        routes: {',
-//    '        }',
-//    '',
-//    '    });',
-//    '',
-//    '    return ' + this._.classify(this.name) + 'Router;',
-//    '});'
-//  ].join('\n');
-//
-//  this.write(destFile, template);
 };

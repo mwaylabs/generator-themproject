@@ -5,6 +5,7 @@ var yeoman = require('yeoman-generator');
 var scriptBase = require('../script-base');
 var backboneUtils = require('../util.js');
 
+
 var Generator = module.exports = function Generator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
@@ -18,9 +19,8 @@ var Generator = module.exports = function Generator(args, options, config) {
     this.hookFor(this.testFramework, {
       as: 'app',
       options: {
-        options: {
-          'skip-install': this.options['skip-install']
-        }
+        'skip-install': this.options['skip-install'],
+        'ui': this.options.ui
       }
     });
   }
@@ -30,6 +30,15 @@ var Generator = module.exports = function Generator(args, options, config) {
     console.log( '\'' + this.generatorName + '\' is not a valid generator command. See \'yo m --help\'');
     process.kill();
   }
+
+  this.config.defaults({
+    ui: this.options.ui,
+    coffee: this.options.coffee,
+    testFramework: this.testFramework,
+    templateFramework: this.templateFramework,
+    compassBootstrap: this.compassBootstrap,
+    includeRequireJS: this.includeRequireJS
+  });
 
   this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
 
@@ -48,6 +57,7 @@ util.inherits(Generator, scriptBase);
 Generator.prototype.askFor = function askFor() {
   var cb = this.async();
 
+  // welcome message
   artwork();
 
   var templateCollection = this.getScaffoldingTemplates();
@@ -61,31 +71,37 @@ Generator.prototype.askFor = function askFor() {
     },
     {
       type: 'confirm',
-      name: 'compass',
+      name: 'compassBootstrap',
       message: 'Would you like to use Sass?',
       default: false
     }
   ];
 
   this.prompt(prompts, function (answers) {
-    this.useCompass = answers.compass;
+    this.compassBootstrap = answers.compassBootstrap;
     this.scaffoldingTemplate = templateCollection[answers.scaffoldingTemplate];
+
+    this.config.set('compassBootstrap', this.compassBootstrap);
 
     // TODO Implement CoffeeScript, requireJS support
     this.includeRequireJS = false;
-    this.useCoffee = false;
+    this.options.requirejs = this.includeRequireJS;
+    this.config.set('includeRequireJS', this.includeRequireJS);
+
+    this.options.coffee = false;
+    this.config.set('coffee', this.options.coffee);
 
     cb();
   }.bind(this));
 };
 
 Generator.prototype.git = function git() {
-  this.copy('gitignore', '.gitignore');
+  this.template('gitignore', '.gitignore');
   this.copy('gitattributes', '.gitattributes');
 };
 
 Generator.prototype.bower = function bower() {
-  this.copy('bowerrc', '.bowerrc');
+  this.template('bowerrc', '.bowerrc');
   this.copy('_bower.json', 'bower.json');
 };
 
@@ -97,25 +113,21 @@ Generator.prototype.editorConfig = function editorConfig() {
   this.copy('editorconfig', '.editorconfig');
 };
 
-Generator.prototype.gruntconfigfile = function gruntconfigfile() {
-  this.template('grunt.config.js');
-};
-
 Generator.prototype.gruntfile = function gruntfile() {
   this.template('Gruntfile.js');
+};
+
+Generator.prototype.gruntconfigfile = function gruntconfigfile() {
+  this.template('grunt.config.js');
 };
 
 Generator.prototype.packageJSON = function packageJSON() {
   this.template('_package.json', 'package.json');
 };
 
-Generator.prototype.configJS = function configJS() {
-  this.template('_config.js', 'app/scripts/config.js');
-};
-
 Generator.prototype.mainStylesheet = function mainStylesheet() {
   var ext = '.css';
-  if (this.useCompass) {
+  if (this.compassBootstrap) {
     ext = '.scss';
   }
   this.write('app/styles/main' + ext, '');
@@ -135,24 +147,30 @@ Generator.prototype.writeIndex = function writeIndex() {
     'bower_components/backbone/backbone.js',
     'bower_components/backbone.stickit/backbone.stickit.js',
     'bower_components/tmpl/tmpl.js',
-    'bower_components/hammerjs/dist/hammer.js',
+    'bower_components/hammerjs/hammer.js',
     'bower_components/fastclick/lib/fastclick.js',
     'bower_components/shake.js/shake.js',
     'bower_components/socket.io-client/dist/socket.io.js',
+    'bower_components/enquire/dist/enquire.js',
     'bower_components/momentjs/min/moment-with-langs.js',
     'bower_components/themproject/dist/themproject.js'
   ];
+
+  if (this.templateFramework === 'handlebars') {
+    vendorJS.push('bower_components/handlebars/handlebars.js');
+  }
 
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/vendor.js', vendorJS);
 
   this.indexFile = this.appendFiles({
     html: this.indexFile,
     fileType: 'js',
-    searchPath: ['.tmp', 'app'],
+    searchPath: ['.tmp', this.env.options.appPath],
     optimizedPath: 'scripts/main.js',
     sourceFileList: [
       'scripts/config.js',
-      'scripts/main.js'
+      'scripts/main.js',
+      'scripts/templates.js'
     ]
   });
 
@@ -180,55 +198,48 @@ Generator.prototype.writeIndexWithRequirejs = function writeIndexWithRequirejs()
 };
 
 Generator.prototype.setupEnv = function setupEnv() {
-  this.mkdir('app');
-  this.mkdir('app/scripts');
-  this.mkdir('app/scripts/vendor/');
-  this.mkdir('app/styles');
-  this.mkdir('app/images');
-  this.copy('app/icons/favicon.png');
-  this.copy('app/icons/android-l.png');
-  this.copy('app/icons/android-m.png');
-  this.copy('app/icons/android-s.png');
-  this.copy('app/icons/apple-ipad-retina.png');
-  this.copy('app/icons/apple-ipad.png');
-  this.copy('app/icons/apple-iphone.png');
-  this.copy('app/icons/apple-iphone-retina.png');
-  this.copy('app/splash/apple-splash-iphone.png');
-  this.copy('app/splash/apple-splash-iphone-retina.png');
-  this.copy('app/splash/apple-splash-ipad-portrait.png');
-  this.copy('app/splash/apple-splash-ipad-landscape.png');
-  this.copy('app/splash/apple-splash-ipad-portrait-retina.png');
-  this.copy('app/splash/apple-splash-ipad-landscape-retina.png');
-  this.write('app/index.html', this.indexFile);
+  this.mkdir(this.env.options.appPath);
+  this.mkdir(this.env.options.appPath + '/scripts');
+  this.mkdir(this.env.options.appPath + '/scripts/vendor/');
+  this.mkdir(this.env.options.appPath + '/styles');
+  this.mkdir(this.env.options.appPath + '/images');
+  this.copy('app/icons/favicon.png', this.env.options.appPath + '/icons/favicon.png');
+  this.copy('app/icons/android-l.png', this.env.options.appPath + '/icons/android-l.png');
+  this.copy('app/icons/android-m.png', this.env.options.appPath + '/icons/android-m.png');
+  this.copy('app/icons/android-s.png', this.env.options.appPath + '/icons/android-s.png');
+  this.copy('app/icons/apple-ipad-retina.png', this.env.options.appPath + '/icons/apple-ipad-retina.png');
+  this.copy('app/icons/apple-ipad.png', this.env.options.appPath + '/icons/apple-ipad.png');
+  this.copy('app/icons/apple-iphone.png', this.env.options.appPath + '/icons/apple-iphone.png');
+  this.copy('app/icons/apple-iphone-retina.png', this.env.options.appPath + '/icons/apple-iphone-retina.png');
+  this.copy('app/splash/apple-splash-iphone.png', this.env.options.appPath + '/splash/apple-splash-iphone.png');
+  this.copy('app/splash/apple-splash-iphone-retina.png', this.env.options.appPath + '/splash/apple-splash-iphone-retina.png');
+  this.copy('app/splash/apple-splash-ipad-portrait.png', this.env.options.appPath + '/splash/apple-splash-ipad-portrait.png');
+  this.copy('app/splash/apple-splash-ipad-landscape.png', this.env.options.appPath + '/splash/apple-splash-ipad-landscape.png');
+  this.copy('app/splash/apple-splash-ipad-portrait-retina.png', this.env.options.appPath + '/splash/apple-splash-ipad-portrait-retina.png');
+  this.copy('app/splash/apple-splash-ipad-landscape-retina.png', this.env.options.appPath + '/splash/apple-splash-ipad-landscape-retina.png');
+  this.write(this.env.options.appPath + '/index.html', this.indexFile);
 
   this.sourceRoot(path.join(__dirname, '../templates'));
-  this.template('i18n.json', 'app/i18n/en.json');
-
+  // this.writeTemplate('i18n', this.env.options.appPath + '/i18n/en');
+  this.template('i18n.json',  this.env.options.appPath + '/i18n/en.json');
 };
 
 Generator.prototype.mainJs = function mainJs() {
   if (!this.includeRequireJS) {
     return;
   }
-
-  var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
-  this.sourceRoot(path.join(__dirname, dirPath));
-
-  var mainJsFile = this.engine(this.read('requirejs_app.js'), this);
-
-  this.write('app/scripts/main.js', mainJsFile);
+  this.writeTemplate('main', this.env.options.appPath + '/scripts/main');
 };
 
 Generator.prototype.createAppFile = function createAppFile() {
   if (this.includeRequireJS) {
     return;
   }
+  this.writeTemplate('app', this.env.options.appPath + '/scripts/main');
+};
 
-  var dirPath = this.options.coffee ? '../templates/coffeescript/' : '../templates';
-  this.sourceRoot(path.join(__dirname, dirPath));
-
-  var ext = this.options.coffee ? 'coffee' : 'js';
-  this.template('app.' + ext, 'app/scripts/main.' + ext);
+Generator.prototype.configJS = function configJS() {
+  this.writeTemplate('config', this.env.options.appPath + '/scripts/config');
 };
 
 Generator.prototype.scaffoldingApp = function scaffoldingApp() {
@@ -244,7 +255,7 @@ Generator.prototype.scaffoldingApp = function scaffoldingApp() {
 
   // Copy files into the project and force overrides
   this.conflicter.force = true;
-  this.directory(this.scaffoldingTemplate.path + '/files', 'app/');
+  this.directory(this.scaffoldingTemplate.path + '/files', this.env.options.appPath);
 };
 
 var artwork = function artwork() {

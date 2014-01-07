@@ -1,4 +1,4 @@
-/*global $*/
+/*global <%= _.camelize(appname) %>, $*/
 
 // PLEASE DON'T CHANGE OR REMOVE THE COMMENTS.
 // All comments in this file are necessary for the build process.
@@ -39,7 +39,7 @@
   * http://backbonejs.org/#Router
   */
 
-(function(global) {
+(function (global) {
     'use strict';
 
     global.<%= _.camelize(appname) %> = M.Application.extend().create(global.<%= _.camelize(appname) %>.mconfig);

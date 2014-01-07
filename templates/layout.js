@@ -1,4 +1,4 @@
-/*global <%= _.camelize(appname) %>*/
+/*global <%= _.camelize(appname) %>, Backbone, JST*/
 
 <%= _.camelize(appname) %>.Layouts = <%= _.camelize(appname) %>.Layouts || {};
 
@@ -10,7 +10,7 @@
  * http://the-m-project.org/docs/absinthe/Layout.html
  */
 
-(function() {
+(function () {
     'use strict';
 
     <%= _.camelize(appname) %>.Layouts.<%= _.classify(name) %>Layout = M.Layout.extend({

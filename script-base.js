@@ -6,18 +6,7 @@ var yeoman = require('yeoman-generator');
 var backboneUtils = require('./util.js');
 
 var Generator = module.exports = function Generator() {
-  try {
-    yeoman.generators.NamedBase.apply(this, arguments);
-  } catch (e) {
-
-    if (this.options.help) {
-      console.log(this.help());
-    } else {
-      console.log(e.message);
-      console.log('See \'yo m:' + this.generatorName + ' --help\'');
-    }
-    process.kill();
-  }
+  yeoman.generators.NamedBase.apply(this, arguments);
 
   this.env.options.appPath = this.config.get('appPath') || 'app';
 
@@ -38,18 +27,24 @@ var Generator = module.exports = function Generator() {
     this.env.options.coffee = this.options.coffee;
   }
 
+  // check if --requirejs option provided or if require is setup
+  if (typeof this.env.options.requirejs === 'undefined') {
+    this.option('requirejs');
+
+    this.options.requirejs = this.checkIfUsingRequireJS();
+
+    this.env.options.requirejs = this.options.requirejs;
+  }
+
   this.setupSourceRootAndSuffix();
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
-Generator.prototype.addScriptToIndexGroup = function (script, group) {
-  this.addScriptToIndex(script, '<!-- m:' + group + ' -->');
-}
 
-Generator.prototype.addScriptToIndex = function (script, needle) {
+Generator.prototype.addScriptToIndex = function (script) {
   try {
-    needle = needle || '<!-- endbuild -->';
+    var needle = '<!-- m:' + script.split('/')[0] + ' -->';
     var appPath = this.env.options.appPath;
     var fullPath = path.join(appPath, 'index.html');
 
@@ -70,16 +65,60 @@ Generator.prototype.addScriptToIndex = function (script, needle) {
  *
  * @return boolean
  */
-Generator.prototype.isUsingRequireJS = function isUsingRequireJS() {
+Generator.prototype.checkIfUsingRequireJS = function checkIfUsingRequireJS() {
+  if (typeof this.env.options.requirejs !== 'undefined') {
+    return this.env.options.requirejs;
+  }
+
   var ext = this.env.options.coffee ? '.coffee' : '.js';
   var filepath = path.join(process.cwd(), 'app/scripts/main' + ext);
 
   try {
-    return (/require\.config/).test(this.read(filepath));
+    this.env.options.requirejs = (/require\.config/).test(this.read(filepath));
+    return this.env.options.requirejs;
   } catch (e) {
     return false;
   }
 };
+
+Generator.prototype.getTemplateFramework = function getTemplateFramework() {
+  if (!(require('fs').existsSync(path.join(process.cwd(), 'Gruntfile.js')))) {
+    return 'lodash';
+  }
+  var ftest = (/templateFramework: '([^\']*)'/);
+  var match = ftest.exec(this.read(path.join(process.cwd(), 'Gruntfile.js')));
+  if (match) {
+    return match[1];
+  } else {
+    return 'lodash';
+  }
+};
+
+Generator.prototype.setupSourceRootAndSuffix = function setupSourceRootAndSuffix() {
+  var sourceRoot = '/templates';
+  this.scriptSuffix = '.js';
+
+  if (this.env.options.coffee || this.options.coffee) {
+    sourceRoot = '/templates/coffeescript';
+    this.scriptSuffix = '.coffee';
+  }
+
+  if (this.env.options.requirejs || this.options.requirejs) {
+    sourceRoot += '/requirejs';
+  }
+
+  this.sourceRoot(path.join(__dirname, sourceRoot));
+};
+
+Generator.prototype.writeTemplate = function writeTemplate(source, destination, data) {
+  this.setupSourceRootAndSuffix();
+  var ext = this.scriptSuffix;
+  this.template(source + ext, destination + ext, data);
+};
+
+Generator.prototype.geneateTests = function geneateTests(){
+  return this.config.get('testFramework') == 'mocha' && !this.config.get('includeRequireJS')
+}
 
 /**
  * Generate an application template.
@@ -93,7 +132,7 @@ Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates()
     {name: 'Blank', value:index++}
   ];
 
-  var basePath = __dirname + '/templates';
+  var basePath = __dirname + '/scaffold';
   var files = fs.readdirSync(basePath);
   files.forEach(function (file) {
     var filePath = basePath + '/' + file;
@@ -103,7 +142,7 @@ Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates()
       // Read file which contains the setup instructions
       var pkg = this.read(filePath + '/package.json', 'utf8');
       pkg = JSON.parse(pkg);
-      pkg.path = file;
+      pkg.path = path.resolve(basePath, file);
       pkg.value = index++;
       result.push(pkg);
     }
@@ -111,10 +150,3 @@ Generator.prototype.getScaffoldingTemplates = function getScaffoldingTemplates()
 
   return result;
 }
-
-Generator.prototype.setupSourceRootAndSuffix = function setupSourceRootAndSuffix() {
-  var sourceRoot = '/templates';
-  this.scriptSuffix = '.js';
-
-  this.sourceRoot(path.join(__dirname, sourceRoot));
-};
