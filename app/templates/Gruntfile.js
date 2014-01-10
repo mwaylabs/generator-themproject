@@ -353,7 +353,7 @@ module.exports = function (grunt) {
                         'splash/*.png',
                         'images/{,*/}*.{webp,gif}',
                         'fonts/{,*/}*.*',
-                        'i18n/*.json'
+                        'i18n/*.js'
                     ]
                 }]
             }

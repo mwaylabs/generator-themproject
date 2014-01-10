@@ -204,7 +204,7 @@ describe('M generator test', function () {
       this.m.app.run({}, function () {
         i18n.run([], function () {
           helpers.assertFiles([
-            ['app/i18n/foo.json', /{\n    "global.button.save": "Save document/]
+            ['app/i18n/foo.js', /{\n    "global.button.save": "Save document/]
           ]);
         });
         done();
