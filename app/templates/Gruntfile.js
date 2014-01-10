@@ -50,6 +50,8 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
+        pkg: grunt.file.readJSON('package.json'),
+        bwr: grunt.file.readJSON('bower.json'),
         watch: {
             options: {
                 nospawn: true,
@@ -474,6 +476,28 @@ module.exports = function (grunt) {
         }
 
         grunt.task.run(tasks);
+    });
+
+    grunt.registerTask('amendIndexFile', '', function() {
+
+        // Open file
+        var path = grunt.template.process('<%%= yeoman.dist %>/index.html');
+        var content = grunt.file.read(path);
+
+        // Construct banner
+        var banner = '<!--\n'+
+        'Version: <%%= pkg.version %>\n'+
+        'Date: <%%= grunt.template.today() %>\n'+
+        'Build with The-M-Project <%%= bwr.dependencies.themproject %>\n'+
+        '-->\n';
+        content = grunt.template.process(banner) + content;
+
+        // Add manifest attribute
+        var regex = new RegExp('(<html+(?![^>]*\bmanifest\b))', 'g');
+        content = content.replace(regex, '$1 manifest="manifest.appcache"');
+
+        // Save file
+        grunt.file.write(path, content);
     });
 
     grunt.registerTask('test', [
