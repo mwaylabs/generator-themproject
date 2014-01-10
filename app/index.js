@@ -220,8 +220,7 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.write(this.env.options.appPath + '/index.html', this.indexFile);
 
   this.sourceRoot(path.join(__dirname, '../templates'));
-  // this.writeTemplate('i18n', this.env.options.appPath + '/i18n/en');
-  this.template('i18n.json',  this.env.options.appPath + '/i18n/en.json');
+  this.writeTemplate('i18n', this.env.options.appPath + '/i18n/en');
 };
 
 Generator.prototype.mainJs = function mainJs() {

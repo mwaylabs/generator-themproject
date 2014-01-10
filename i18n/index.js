@@ -15,6 +15,5 @@ function Generator() {
 util.inherits(Generator, scriptBase);
 
 Generator.prototype.createControllerFiles = function createControllerFiles() {
-  //this.writeTemplate('i18n', path.join(this.env.options.appPath + '/i18n', this.name));
-  this.template('i18n.json',  this.env.options.appPath + '/i18n/' + this.name + '.json');
+  this.writeTemplate('i18n', path.join(this.env.options.appPath + '/i18n', this.name));
 };
