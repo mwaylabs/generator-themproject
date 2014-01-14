@@ -91,6 +91,7 @@ describe('M generator test', function () {
       'app/icons/apple-iphone-retina.png',
       'app/splash/apple-splash-iphone.png',
       'app/splash/apple-splash-iphone-retina.png',
+	  'app/splash/apple-splash-iphone-retina5.png',
       'app/splash/apple-splash-ipad-portrait.png',
       'app/splash/apple-splash-ipad-landscape.png',
       'app/splash/apple-splash-ipad-portrait-retina.png',

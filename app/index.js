@@ -213,6 +213,7 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.copy('app/icons/apple-iphone-retina.png', this.env.options.appPath + '/icons/apple-iphone-retina.png');
   this.copy('app/splash/apple-splash-iphone.png', this.env.options.appPath + '/splash/apple-splash-iphone.png');
   this.copy('app/splash/apple-splash-iphone-retina.png', this.env.options.appPath + '/splash/apple-splash-iphone-retina.png');
+  this.copy('app/splash/apple-splash-iphone-retina5.png', this.env.options.appPath + '/splash/apple-splash-iphone-retina5.png');
   this.copy('app/splash/apple-splash-ipad-portrait.png', this.env.options.appPath + '/splash/apple-splash-ipad-portrait.png');
   this.copy('app/splash/apple-splash-ipad-landscape.png', this.env.options.appPath + '/splash/apple-splash-ipad-landscape.png');
   this.copy('app/splash/apple-splash-ipad-portrait-retina.png', this.env.options.appPath + '/splash/apple-splash-ipad-portrait-retina.png');
