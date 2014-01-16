@@ -35,7 +35,7 @@ function Generator() {
   };
 
   if (this.geneateTests()) {
-    this.hookFor('backbone-mocha', testOptions);
+    this.hookFor('m-mocha', testOptions);
   }
 
 }

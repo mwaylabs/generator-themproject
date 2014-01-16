@@ -21,7 +21,7 @@ function Generator(args, options, config) {
   };
 
   if (this.geneateTests()) {
-    this.hookFor('backbone-mocha', testOptions);
+    this.hookFor('m-mocha', testOptions);
   }
 
   this.argument('modelName', { type: String, required: false });

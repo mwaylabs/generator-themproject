@@ -1,6 +1,6 @@
 {
   "name": "generator-m",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Yeoman generator for The-M-Project",
   "keywords": [
     "yeoman-generator",
@@ -30,7 +30,7 @@
   },
   "peerDependencies": {
     "generator-mocha": "~0.1.1",
-    "generator-backbone-mocha": "~0.0.2",
+    "generator-m-mocha": "~0.0.2",
     "yo": ">=1.0.0-rc.1.1"
   },
   "devDependencies": {
