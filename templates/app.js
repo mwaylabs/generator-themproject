@@ -42,7 +42,7 @@
 (function (global) {
     'use strict';
 
-    global.<%= _.camelize(appname) %> = M.Application.extend().create(global.<%= _.camelize(appname) %>.mconfig);
+    global.<%= _.camelize(appname) %> = M.Application.extend(global.<%= _.camelize(appname) %>).create(global.<%= _.camelize(appname) %>.mconfig);
 
     $(document).ready(function() {
 
