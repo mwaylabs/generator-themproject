@@ -532,7 +532,6 @@ module.exports = function (grunt) {
         'copy',
         'rev',
         'usemin',
-        'htmlmin',
         'manifest',
         'amendIndexFile'
     ]);
